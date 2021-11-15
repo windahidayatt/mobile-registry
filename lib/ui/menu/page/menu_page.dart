@@ -16,10 +16,13 @@ class MenuPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  const Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                    size: 52.0,
+                  const Text(
+                    "Welcome, \nAndi Fauzy Dewantara",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
                   ),
                   Image.asset(
                     "assets/image.png",
@@ -30,13 +33,15 @@ class MenuPage extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.all(18.0),
-              child: Text(
-                "Welcome, Doctor code \nSelect an option",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.start,
+              child: Center(
+                child: Text(
+                  "Select Menu",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
+                ),
               ),
             ),
             Padding(
@@ -50,7 +55,7 @@ class MenuPage extends StatelessWidget {
                       width: 160.0,
                       height: 160.0,
                       child: Card(
-                        color: const Color.fromARGB(255, 21, 21, 21),
+                        color: Colors.grey.shade300,
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -70,7 +75,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "Pre-Operative",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.0),
                               ),
@@ -80,8 +85,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "2 Items",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w100),
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -92,7 +96,7 @@ class MenuPage extends StatelessWidget {
                       width: 160.0,
                       height: 160.0,
                       child: Card(
-                        color: const Color.fromARGB(255, 21, 21, 21),
+                        color: Colors.grey.shade300,
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -112,7 +116,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "Intra-Operative",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.0),
                               ),
@@ -122,8 +126,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "12 Items",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w100),
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -134,7 +137,7 @@ class MenuPage extends StatelessWidget {
                       width: 160.0,
                       height: 160.0,
                       child: Card(
-                        color: const Color.fromARGB(255, 21, 21, 21),
+                        color: Colors.grey.shade300,
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -154,7 +157,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "Post-Operative",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.0),
                               ),
@@ -164,8 +167,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "4 Items",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w100),
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -176,7 +178,7 @@ class MenuPage extends StatelessWidget {
                       width: 160.0,
                       height: 160.0,
                       child: Card(
-                        color: const Color.fromARGB(255, 21, 21, 21),
+                        color: Colors.grey.shade300,
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -196,7 +198,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "Settings",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.0),
                               ),
@@ -206,8 +208,7 @@ class MenuPage extends StatelessWidget {
                               const Text(
                                 "6 Items",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w100),
+                                    color: Colors.black),
                               )
                             ],
                           ),
