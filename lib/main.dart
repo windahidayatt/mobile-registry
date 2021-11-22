@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_registry/feature/authentication/route/authentication_route.dart';
+import 'package:mobile_registry/feature/authentication/ui/splash/page/splash_page.dart';
+import 'package:mobile_registry/shared_library/injection/injection.dart';
+import 'package:mobile_registry/shared_library/set_orientation/set_orientation.dart';
 
-import 'ui/menu/page/menu_page.dart';
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Injection().initialize();
+  SetOrientation().setPortrait();
   runApp(const MyApp());
 }
 
@@ -11,9 +16,12 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
-      home: MenuPage(),
+      home: const SplashPage(),
+      getPages: [
+        ...authenticationRoute(),
+      ],
     );
   }
 }
