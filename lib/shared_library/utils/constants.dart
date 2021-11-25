@@ -15,6 +15,7 @@ class RERoute {
 
   /// Authentication.
   String get initial => '/';
+  String get login => '/auth/login';
 }
 
 class RECached {

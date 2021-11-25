@@ -1,3 +1,4 @@
+import 'package:mobile_registry/domain/authentication/di/authentication_domain_dependencies.dart';
 import 'package:mobile_registry/feature/authentication/di/authentication_feature_dependencies.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +12,7 @@ class Injection {
   }
 
   void _registerDomainDependencies(){
-
+    AuthenticationDomainDependencies();
   }
 
   void _registerFeatureDependencies(){
