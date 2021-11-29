@@ -15,3 +15,7 @@ abstract class Failure extends Equatable {
         statusCode,
       ];
 }
+
+class GeneralFailure extends Failure {
+  const GeneralFailure({required String message}) : super(message: message);
+}

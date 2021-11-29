@@ -8,6 +8,8 @@ class Constants {
 
 class REApi {
   const REApi();
+  String get endpoint => 'http://127.0.0.1:8000';
+  String get login => '/login';
 }
 
 class RERoute {

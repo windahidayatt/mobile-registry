@@ -12,7 +12,9 @@ class AuthenticationFeatureDependencies {
       () => SplashController(),
     );
     sl.registerFactory<LoginController>(
-          () => LoginController(),
+          () => LoginController(
+            loginUseCase: sl(),
+          ),
     );
   }
 }

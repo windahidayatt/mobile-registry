@@ -7,9 +7,12 @@ import 'package:mobile_registry/shared_library/use_case/use_case.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
-  Future<Either<Failure, ResultLogin>> login(LoginParams params) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<Either<Failure, ResultLogin>> login(LoginParams params) async {
+    try {
+      return const Left(GeneralFailure(message: 'Sukses'));
+    } catch(e) {
+      return Left(GeneralFailure(message: e.toString()));
+    }
   }
 
   @override

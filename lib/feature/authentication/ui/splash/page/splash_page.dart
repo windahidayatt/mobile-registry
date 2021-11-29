@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_registry/feature/authentication/ui/splash/controller/splash_controller.dart';
+import 'package:mobile_registry/gen/assets.gen.dart';
+import 'package:mobile_registry/gen/fonts.gen.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
+import 'package:mobile_registry/shared_library/utils/color_tone.dart';
 import 'package:sizer/sizer.dart';
 
 class SplashPage extends StatefulWidget {
@@ -31,12 +34,41 @@ class _SplashPageState extends State<SplashPage> {
             const Spacer(
               flex: 1,
             ),
-            const Icon(Icons.local_hospital, size: 128),
-            const Text("Registry"),
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.all(2.h),
+              height: 20.h,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                image: Assets.image.icon.logo,
+              )),
+            ),
+            Text(
+              "Shoulder and Elbow\nRegistry",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: FontFamily.inter,
+                fontWeight: FontWeight.w800,
+                color: ColorTone.reLightBlack,
+                fontSize: 14.sp,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 22.w),
+              child: const LinearProgressIndicator(),
+            ),
             const Spacer(
               flex: 1,
             ),
-            const Text("Registry Version 1.0"),
+            Text(
+              "Registry Version 1.0",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: FontFamily.inter,
+                color: ColorTone.reLightBlack,
+                fontSize: 10.sp,
+              ),
+            ),
             SizedBox(
               height: 5.h,
             )
