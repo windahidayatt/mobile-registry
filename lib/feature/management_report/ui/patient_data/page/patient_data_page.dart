@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:mobile_registry/feature/management_report/ui/patient_data/controller/patient_data_controller.dart';
 import 'package:mobile_registry/shared_library/lifecycle/view_state.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
-import 'package:mobile_registry/shared_library/state/se_error.dart';
-import 'package:mobile_registry/shared_library/state/se_loading.dart';
+import 'package:mobile_registry/shared_library/state/empty_state.dart';
+import 'package:mobile_registry/shared_library/state/se_error_page.dart';
+import 'package:mobile_registry/shared_library/state/se_loading_page.dart';
 
 class PatientDataPage extends StatefulWidget {
   const PatientDataPage({Key? key}) : super(key: key);
@@ -18,25 +19,40 @@ class _PatientDataPageState extends State<PatientDataPage> {
 
   @override
   void initState() {
-    super.initState();
     _controller.getPatientsData();
-    ever(_controller.viewState, (ViewState value){
-      if(value.status == Status.LOADING){
-        Get.dialog(const SELoading());
-      }
-
-      if(value.status == Status.ERROR){
-        SEError.show(error: value.message);
-      }
-    });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Patient Data Page'),
-      ),
+    return Scaffold(
+      body: Obx(() {
+        switch (_controller.viewState.value.status) {
+          case Status.INITIAL:
+            return const Center(
+              child: EmptyState(),
+            );
+          case Status.LOADING:
+            return const Center(
+              child: SELoadingPage(),
+            );
+          case Status.COMPLETED:
+            return ListView.builder(
+                itemCount: _controller.listPatient.length,
+                itemBuilder: (context, index) {
+                  return Text(_controller.listPatient[index].name);
+                });
+          case Status.ERROR:
+            return Center(
+              child: SEErrorPage(
+                message: _controller.viewState.value.message,
+                onRefresh: () {
+                  _controller.getPatientsData();
+                },
+              ),
+            );
+        }
+      }),
     );
   }
 }

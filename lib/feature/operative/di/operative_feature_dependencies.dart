@@ -10,13 +10,17 @@ class OperativeFeatureDependencies {
 
   void _registerController() {
     sl.registerFactory<PreOperativeController>(
-      () => PreOperativeController(),
+      () => PreOperativeController(
+        getPreOperativesUseCase: sl(),
+      ),
     );
     sl.registerFactory<PostOperativeController>(
       () => PostOperativeController(),
     );
     sl.registerFactory<IntraOperativeController>(
-      () => IntraOperativeController(),
+      () => IntraOperativeController(
+        getIntraOperativesUseCase: sl(),
+      ),
     );
   }
 }

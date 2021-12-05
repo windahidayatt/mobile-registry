@@ -8,6 +8,7 @@ import 'package:mobile_registry/shared_library/use_case/use_case.dart';
 
 class PatientDataController extends GetxController {
   final GetPatientsUseCase getPatientsUseCase;
+  final List<Patient> listPatient = [];
   PatientDataController({required this.getPatientsUseCase});
 
   final Rx<ViewState> viewState = ViewState.initial().obs;
@@ -24,6 +25,8 @@ class PatientDataController extends GetxController {
       viewState(ViewState.error(l.message.toString()));
     }, (r) {
       viewState(ViewState.completed(r));
+      listPatient.clear();
+      listPatient.addAll(r);
     });
   }
 }
