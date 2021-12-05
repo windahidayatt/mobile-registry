@@ -10,6 +10,7 @@ class REApi {
   const REApi();
   String get endpoint => '10.0.2.2:8000';
   String get login => '/api/login';
+  String get patient => '/api/patient';
 }
 
 class RERoute {

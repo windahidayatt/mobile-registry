@@ -12,7 +12,9 @@ class ManagementReportFeatureDependencies {
       () => ReportController(),
     );
     sl.registerFactory<PatientDataController>(
-      () => PatientDataController(),
+      () => PatientDataController(
+        getPatientsUseCase: sl()
+      ),
     );
   }
 }
