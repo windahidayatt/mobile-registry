@@ -13,6 +13,10 @@ class AuthenticationLocalDatasource {
     );
   }
 
+  Future<void> clearToken() {
+    return sharedPreferences.clear();
+  }
+
   Future<String> getToken() {
     final value = sharedPreferences.getString(Constants.reCached.token);
     if (value != null) {

@@ -30,7 +30,11 @@ class LoginController extends GetxController {
       viewState(ViewState.error(l.message.toString()));
     }, (r) {
       viewState(ViewState.completed(r));
-      Get.offAndToNamed(Constants.reRoute.home);
+      _navigateToHomePage();
     });
+  }
+
+  _navigateToHomePage(){
+    Get.offAndToNamed(Constants.reRoute.home);
   }
 }

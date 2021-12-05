@@ -3,13 +3,36 @@ import 'package:get/get.dart';
 import 'package:mobile_registry/feature/home/enum/home_page_type.dart';
 import 'package:mobile_registry/feature/home/ui/home/controller/home_controller.dart';
 import 'package:mobile_registry/gen/fonts.gen.dart';
+import 'package:mobile_registry/shared_library/lifecycle/view_state.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
+import 'package:mobile_registry/shared_library/state/se_error.dart';
+import 'package:mobile_registry/shared_library/state/se_loading.dart';
 import 'package:mobile_registry/shared_library/utils/color_tone.dart';
 import 'package:sizer/sizer.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final HomeController _controller = sl();
+
+  @override
+  void initState() {
+    super.initState();
+    ever(_controller.viewState, (ViewState value){
+      if(value.status == Status.LOADING){
+        Get.dialog(const SELoading());
+      }
+
+      if(value.status == Status.ERROR){
+        SEError.show(error: value.message);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +90,11 @@ class HomePage extends StatelessWidget {
                   onTap: () => _changePage(HomePageType.postOperative),
                 ),
               ],
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () => _controller.logout(),
             ),
             const Spacer(),
             _versionApp(),

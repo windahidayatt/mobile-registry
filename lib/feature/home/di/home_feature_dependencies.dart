@@ -9,7 +9,9 @@ class HomeFeatureDependencies {
 
   void _registerController() {
     sl.registerFactory<HomeController>(
-      () => HomeController(),
+      () => HomeController(
+        logoutUseCase: sl(),
+      ),
     );
     sl.registerFactory<DashboardController>(
       () => DashboardController(),

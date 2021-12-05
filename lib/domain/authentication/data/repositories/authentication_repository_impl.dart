@@ -28,9 +28,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> logout(NoParams params) {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> logout(NoParams params) async {
+    try {
+      await localDatasource.clearToken();
+      return const Right(true);
+    } on CacheException catch (error) {
+      return Left(CacheFailure(message: error.message));
+    }
   }
 
   @override
