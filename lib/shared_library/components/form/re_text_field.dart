@@ -26,6 +26,7 @@ class RETextField extends StatelessWidget {
       validator: validator,
       obscureText: isPassword,
       decoration: InputDecoration(
+        isDense: true,
         helperText: helperText,
         labelText: label,
         prefixIcon: prefixIcon,

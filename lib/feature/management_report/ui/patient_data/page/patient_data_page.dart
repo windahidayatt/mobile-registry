@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_registry/domain/management_report/domain/entities/patient.dart';
+import 'package:mobile_registry/feature/management_report/ui/detail_patient/page/detail_patient_page.dart';
 import 'package:mobile_registry/feature/management_report/ui/patient_data/controller/patient_data_controller.dart';
 import 'package:mobile_registry/shared_library/lifecycle/view_state.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
 import 'package:mobile_registry/shared_library/state/empty_state.dart';
 import 'package:mobile_registry/shared_library/state/se_error_page.dart';
 import 'package:mobile_registry/shared_library/state/se_loading_page.dart';
+import 'package:mobile_registry/shared_library/utils/color_tone.dart';
 
 class PatientDataPage extends StatefulWidget {
   const PatientDataPage({Key? key}) : super(key: key);
@@ -40,7 +43,9 @@ class _PatientDataPageState extends State<PatientDataPage> {
             return ListView.builder(
                 itemCount: _controller.listPatient.length,
                 itemBuilder: (context, index) {
-                  return Text(_controller.listPatient[index].name);
+                  return _patientCard(
+                    _controller.listPatient[index],
+                  );
                 });
           case Status.ERROR:
             return Center(
@@ -53,6 +58,72 @@ class _PatientDataPageState extends State<PatientDataPage> {
             );
         }
       }),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  _navigateToDetailPage(Patient patient) {
+    Get.dialog(
+      DetailPatientPage(patient: patient),
+    );
+  }
+
+  Widget _patientCard(Patient patient) {
+    return GestureDetector(
+      onTap: () {
+        _navigateToDetailPage(patient);
+      },
+      child: Card(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 8,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(patient.name),
+                    Text(patient.domainManagement),
+                    Text(patient.hospital),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(patient.management),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 8.0),
+                      child: Text(
+                        patient.gender,
+                        style: const TextStyle(color: ColorTone.reWhite),
+                      ),
+                      decoration: BoxDecoration(
+                          color: (patient.gender.toUpperCase() ==
+                                  'Male'.toUpperCase())
+                              ? ColorTone.reBlue
+                              : ColorTone.reOrange,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

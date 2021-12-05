@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorTone {
   ColorTone._();
   static const Color reWhite = Color(0xFFFFFFFF);
+  static const Color reRed = Color(0xFFE74A3B);
   static const Color reBlue = Color(0xFF88C7E8);
   static const Color reGreen = Color(0xFF20CBAF);
   static const Color reOrange = Color(0xFFFF8737);
