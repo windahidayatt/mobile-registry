@@ -1,227 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_registry/feature/home/enum/home_page_type.dart';
+import 'package:mobile_registry/feature/home/ui/home/controller/home_controller.dart';
+import 'package:mobile_registry/gen/fonts.gen.dart';
+import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
+import 'package:mobile_registry/shared_library/utils/color_tone.dart';
+import 'package:sizer/sizer.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+  final HomeController _controller = sl();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2AB2A1),
-      body: SafeArea(
+      appBar: AppBar(
+        title: const Text('Mobile Registry'),
+        centerTitle: true,
+      ),
+      body: Obx(
+        () => _controller.pages[_controller.indexPage.value],
+      ),
+      drawer: Drawer(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  const Text(
-                    "Welcome, \nAndi Fauzy Dewantara",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
-                  ),
-                  Image.asset(
-                    "assets/image.png",
-                    width: 52.0,
-                  )
-                ],
-              ),
+          children: [
+            const ListTile(
+              title: Text('Shoulder And Elbow Registry'),
             ),
-            const Padding(
-              padding: EdgeInsets.all(18.0),
-              child: Center(
-                child: Text(
-                  "Select Menu",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                ),
-              ),
+            ListTile(
+              title: const Text('Dashboard'),
+              onTap: () => _changePage(HomePageType.dashboard),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Center(
-                child: Wrap(
-                  spacing: 20,
-                  runSpacing: 20.0,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 160.0,
-                      height: 160.0,
-                      child: Card(
-                        color: Colors.grey.shade300,
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/todo.png",
-                                width: 64.0,
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              const Text(
-                                "Pre-Operative",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              const Text(
-                                "2 Items",
-                                style: TextStyle(
-                                    color: Colors.black),
-                              )
-                            ],
-                          ),
-                        )),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 160.0,
-                      height: 160.0,
-                      child: Card(
-                        color: Colors.grey.shade300,
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/note.png",
-                                width: 64.0,
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              const Text(
-                                "Intra-Operative",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              const Text(
-                                "12 Items",
-                                style: TextStyle(
-                                    color: Colors.black),
-                              )
-                            ],
-                          ),
-                        )),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 160.0,
-                      height: 160.0,
-                      child: Card(
-                        color: Colors.grey.shade300,
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/calendar.png",
-                                width: 64.0,
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              const Text(
-                                "Post-Operative",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              const Text(
-                                "4 Items",
-                                style: TextStyle(
-                                    color: Colors.black),
-                              )
-                            ],
-                          ),
-                        )),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 160.0,
-                      height: 160.0,
-                      child: Card(
-                        color: Colors.grey.shade300,
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/settings.png",
-                                width: 64.0,
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              const Text(
-                                "Settings",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              const Text(
-                                "6 Items",
-                                style: TextStyle(
-                                    color: Colors.black),
-                              )
-                            ],
-                          ),
-                        )),
-                      ),
-                    ),
-                  ],
+            ExpansionTile(
+              initiallyExpanded: true,
+              title: const Text('Management & Report'),
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.group),
+                  title: const Text('Patient Data'),
+                  onTap: () => _changePage(HomePageType.patientData),
                 ),
-              ),
-            )
+                ListTile(
+                  leading: const Icon(Icons.folder),
+                  title: const Text('Patient Report'),
+                  onTap: () => _changePage(HomePageType.report),
+                )
+              ],
+            ),
+            ExpansionTile(
+              initiallyExpanded: true,
+              title: const Text('Operative'),
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.file_copy),
+                  title: const Text('Pre Operative'),
+                  onTap: () => _changePage(HomePageType.preOperative),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.file_copy),
+                  title: const Text('Intra Operative'),
+                  onTap: () => _changePage(HomePageType.intraOperative),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.file_copy),
+                  title: const Text('Post Operative'),
+                  onTap: () => _changePage(HomePageType.postOperative),
+                ),
+              ],
+            ),
+            const Spacer(),
+            _versionApp(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _versionApp() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.h),
+      child: Text(
+        "Registry Version 1.0",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: FontFamily.inter,
+          color: ColorTone.reLightBlack,
+          fontSize: 10.sp,
+        ),
+      ),
+    );
+  }
+
+  void _changePage(HomePageType homePageType) {
+    _controller.indexPage(homePageType.value);
+    Get.back();
   }
 }

@@ -27,10 +27,12 @@ class AuthenticationRemoteDatasource {
       final response = await client.post(uri);
       log('[REMOTE] : ${uri.toString()}');
       if (response.statusCode == 200) {
+        log('[REMOTE TOKEN] : ${LoginResponseDTO.fromJson(json.decode(response.body)).accessToken.toString()}');
         return LoginResponseDTO.fromJson(json.decode(response.body));
       } else {
         log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
-        throw APIException(json.decode(response.body)['message'], response.statusCode);
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
       }
     } catch (error) {
       log('[REMOTE ERROR] : ${error.toString()}');

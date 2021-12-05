@@ -5,7 +5,7 @@ List<GetPage> homeRoute() {
   return [
     GetPage(
       name: Constants.reRoute.home,
-      page: () => const HomePage(),
+      page: () => HomePage(),
     ),
   ];
 }
