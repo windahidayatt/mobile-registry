@@ -8,8 +8,8 @@ class Constants {
 
 class REApi {
   const REApi();
-  String get endpoint => 'http://127.0.0.1:8000';
-  String get login => '/login';
+  String get endpoint => '10.0.2.2:8000';
+  String get login => '/api/login';
 }
 
 class RERoute {
@@ -18,8 +18,11 @@ class RERoute {
   /// Authentication.
   String get initial => '/';
   String get login => '/auth/login';
+  String get home => '/home';
 }
 
 class RECached {
   const RECached();
+
+  String get token => 'CACHED_TOKEN';
 }

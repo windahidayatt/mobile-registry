@@ -40,13 +40,14 @@ dependencies:
   shared_preferences: ^2.0.9
   # Request HTTP.
   http: ^0.13.4
-  connectivity: ^3.0.6
   # Response Success Failure Domain
   dartz: ^0.10.0
   # Class Equatable
   equatable: ^2.0.3
   # Sizer Responsive
   sizer: ^2.0.15
+  # Inspector Http
+  shake: ^2.0.0
 
 dev_dependencies:
   flutter_test:

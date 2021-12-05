@@ -46,94 +46,90 @@ class _LoginPageState extends State<LoginPage> {
         height: 100.h,
         child: Center(
           child: SingleChildScrollView(
-            child: Obx((){
-              switch(_controller.viewState.value.status){
-                case Status.INITIAL:
-                case Status.LOADING:
-                case Status.COMPLETED:
-                case Status.ERROR:
-                  return Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: Assets.image.main.splashMainImage,
-                          )),
-                    ),
-                    SizedBox(height: 2.h),
-                    Text(
-                      "Silahkan Login",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: FontFamily.inter,
-                        fontWeight: FontWeight.w800,
-                        color: ColorTone.reLightBlack,
-                        fontSize: 14.sp,
-                      ),
-                    ),
-                    Text(
-                      "Gunakan akun yang terdaftar oleh sistem.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: FontFamily.inter,
-                        color: ColorTone.reLightBlack,
-                        fontSize: 10.sp,
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    Padding(
-                      padding:
-                      EdgeInsets.symmetric(vertical: 2.h, horizontal: 10.w),
-                      child: RETextField(
-                        controller: _controller.emailController,
-                        label: "Email",
-                        validator: REValidator.validatorEmail,
-                        prefixIcon: const Icon(
-                          Icons.person,
-                          color: ColorTone.reDarkGrey,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: RETextField(
-                        controller: _controller.passwordController,
-                        label: 'Password',
-                        isPassword: true,
-                        validator: REValidator.validatorPassword,
-                        prefixIcon: const Icon(
-                          Icons.lock,
-                          color: ColorTone.reDarkGrey,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: Row(
-                        children: [
-                          const Spacer(
-                            flex: 1,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: REButton(
-                              label: 'Masuk',
-                              onTap: () => _controller.login(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                );
-              }
-            }),
+            child: _body(),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _body(){
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 30.h,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: Assets.image.main.splashMainImage,
+              )),
+        ),
+        SizedBox(height: 2.h),
+        Text(
+          "Silahkan Login",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: FontFamily.inter,
+            fontWeight: FontWeight.w800,
+            color: ColorTone.reLightBlack,
+            fontSize: 14.sp,
+          ),
+        ),
+        Text(
+          "Gunakan akun yang terdaftar oleh sistem.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: FontFamily.inter,
+            color: ColorTone.reLightBlack,
+            fontSize: 10.sp,
+          ),
+        ),
+        SizedBox(height: 2.h),
+        Padding(
+          padding:
+          EdgeInsets.symmetric(vertical: 2.h, horizontal: 10.w),
+          child: RETextField(
+            controller: _controller.emailController,
+            label: "Email",
+            validator: REValidator.validatorEmail,
+            prefixIcon: const Icon(
+              Icons.person,
+              color: ColorTone.reDarkGrey,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: RETextField(
+            controller: _controller.passwordController,
+            label: 'Password',
+            isPassword: true,
+            validator: REValidator.validatorPassword,
+            prefixIcon: const Icon(
+              Icons.lock,
+              color: ColorTone.reDarkGrey,
+            ),
+          ),
+        ),
+        SizedBox(height: 2.h),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: Row(
+            children: [
+              const Spacer(
+                flex: 1,
+              ),
+              Expanded(
+                flex: 2,
+                child: REButton(
+                  label: 'Masuk',
+                  onTap: () => _controller.login(),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

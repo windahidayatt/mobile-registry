@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_registry/feature/home/route/home_route.dart';
 import 'package:sizer/sizer.dart';
 import 'package:mobile_registry/feature/authentication/route/authentication_route.dart';
 import 'package:mobile_registry/feature/authentication/ui/splash/page/splash_page.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
           home: const SplashPage(),
           getPages: [
             ...authenticationRoute(),
+            ...homeRoute(),
           ],
         );
       },
