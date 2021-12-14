@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mobile_registry/domain/operative/data/datasources/operative_local_datasource.dart';
 import 'package:mobile_registry/domain/operative/data/datasources/operative_remote_datasource.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/intra_operative.dart';
+import 'package:mobile_registry/domain/operative/domain/entities/post_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/pre_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/repositories/operative_repository.dart';
 import 'package:mobile_registry/shared_library/exception/api_exceptions.dart';
@@ -41,6 +42,22 @@ class OperativeRepositoryImpl implements OperativeRepository {
       List<IntraOperative> patients = List<IntraOperative>.from(
         result.map(
           (x) => IntraOperative.fromDTO(x),
+        ),
+      );
+      return Right(patients);
+    } on APIException catch (error) {
+      return Left(APIFailure(message: error.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<PostOperative>>> getPostOperatives(
+      NoParams params) async {
+    try {
+      var result = await remoteDatasource.getPostOperatives();
+      List<PostOperative> patients = List<PostOperative>.from(
+        result.map(
+          (x) => PostOperative.fromDTO(x),
         ),
       );
       return Right(patients);

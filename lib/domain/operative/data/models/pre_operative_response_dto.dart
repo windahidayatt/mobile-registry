@@ -91,7 +91,7 @@ class PreOperativeResponseDTO {
   final String? ctScanFile;
   final String? mriFile;
   final String? actionPlan;
-  final String plannedDate;
+  final String? plannedDate;
   final int progessSupportInvestigation;
   final int progessBpjsBilling;
   final int progessAnesthesia;

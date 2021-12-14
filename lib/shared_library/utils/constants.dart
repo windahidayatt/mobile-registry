@@ -8,11 +8,12 @@ class Constants {
 
 class REApi {
   const REApi();
-  String get endpoint => '10.0.2.2:8000';
+  String get endpoint => 'dreamediasolution.xyz';
   String get login => '/api/login';
   String get patient => '/api/patient';
   String get preOperatives => '/api/preoperative';
   String get intraOperatives => '/api/intraoperative';
+  String get postOperatives => '/api/postoperative';
 }
 
 class RERoute {

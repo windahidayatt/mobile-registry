@@ -41,12 +41,18 @@ class _PatientDataPageState extends State<PatientDataPage> {
             );
           case Status.COMPLETED:
             return ListView.builder(
-                itemCount: _controller.listPatient.length,
-                itemBuilder: (context, index) {
-                  return _patientCard(
-                    _controller.listPatient[index],
-                  );
-                });
+              itemCount: _controller.listPatient.length,
+              itemBuilder: (context, index) {
+                return _patientCard(_controller.listPatient[index]);
+                /*
+                return InfoPatientWidget(
+                    title: _controller.listPatient[index].name,
+                    subTitle: _controller.listPatient[index].domainManagement,
+                    childSubTitle: _controller.listPatient[index].hospital,
+                    rightContent: _controller.listPatient[index].management,
+                    subRightContent: _controller.listPatient[index].gender);*/
+              },
+            );
           case Status.ERROR:
             return Center(
               child: SEErrorPage(
@@ -86,9 +92,21 @@ class _PatientDataPageState extends State<PatientDataPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(patient.name),
-                    Text(patient.domainManagement),
-                    Text(patient.hospital),
+                    Text(
+                      patient.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      patient.domainManagement,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      patient.hospital,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ],
                 ),
               ),

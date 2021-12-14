@@ -15,7 +15,9 @@ class OperativeFeatureDependencies {
       ),
     );
     sl.registerFactory<PostOperativeController>(
-      () => PostOperativeController(),
+      () => PostOperativeController(
+        getPostOperativesUseCase: sl(),
+      ),
     );
     sl.registerFactory<IntraOperativeController>(
       () => IntraOperativeController(

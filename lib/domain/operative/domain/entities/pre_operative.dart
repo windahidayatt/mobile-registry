@@ -4,15 +4,27 @@ import 'package:mobile_registry/domain/operative/data/models/pre_operative_respo
 class PreOperative extends Equatable {
   final int id;
   final String name;
+  final String domainCaseName;
+  final String hospital;
+  final String management;
+  final String gender;
 
   const PreOperative({
     required this.id,
     required this.name,
+    required this.domainCaseName,
+    required this.hospital,
+    required this.management,
+    required this.gender,
   });
 
   factory PreOperative.fromDTO(PreOperativeResponseDTO dto) => PreOperative(
         id: dto.id,
         name: dto.name,
+        domainCaseName: dto.domainCaseName,
+        hospital: dto.hospital,
+        management: dto.management,
+        gender: dto.gender,
       );
 
   @override
