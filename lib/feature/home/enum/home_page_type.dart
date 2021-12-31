@@ -8,7 +8,7 @@ enum HomePageType {
 }
 
 extension HomePageTypeExtension on HomePageType {
-  int get value {
+  int get getIndex {
     switch (this) {
       case HomePageType.dashboard:
         return 0;
@@ -22,6 +22,23 @@ extension HomePageTypeExtension on HomePageType {
         return 4;
       case HomePageType.postOperative:
         return 5;
+    }
+  }
+
+  String get title {
+    switch (this) {
+      case HomePageType.dashboard:
+        return 'Dashboard Page';
+      case HomePageType.patientData:
+        return 'Patient Data Page';
+      case HomePageType.report:
+        return 'Report Page';
+      case HomePageType.preOperative:
+        return 'Pre Operative Page';
+      case HomePageType.intraOperative:
+        return 'Intra Operative Page';
+      case HomePageType.postOperative:
+        return 'Post Operative Page';
     }
   }
 }

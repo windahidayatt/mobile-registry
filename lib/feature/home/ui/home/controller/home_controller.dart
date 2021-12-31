@@ -8,7 +8,7 @@ import 'package:mobile_registry/feature/management_report/ui/patient_data/page/p
 import 'package:mobile_registry/feature/management_report/ui/report/page/report_page.dart';
 import 'package:mobile_registry/feature/operative/ui/intra_operative/page/intra_operative_page.dart';
 import 'package:mobile_registry/feature/operative/ui/post_operative/page/post_operative_page.dart';
-import 'package:mobile_registry/feature/operative/ui/pre_operative/page/pre_operative_page.dart';
+import 'package:mobile_registry/feature/operative/ui/pre_operative/dashboard/page/pre_operative_page.dart';
 import 'package:mobile_registry/shared_library/failure/failure.dart';
 import 'package:mobile_registry/shared_library/lifecycle/view_state.dart';
 import 'package:mobile_registry/shared_library/use_case/use_case.dart';
@@ -18,7 +18,7 @@ class HomeController extends GetxController {
   final LogoutUseCase logoutUseCase;
   HomeController({required this.logoutUseCase});
 
-  RxInt indexPage = HomePageType.dashboard.value.obs;
+  Rx<HomePageType> indexPage = HomePageType.dashboard.obs;
   final Rx<ViewState> viewState = ViewState.initial().obs;
   RxList<Widget> pages = const [
     DashboardPage(),

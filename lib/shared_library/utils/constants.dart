@@ -23,6 +23,9 @@ class RERoute {
   String get initial => '/';
   String get login => '/auth/login';
   String get home => '/home';
+
+  // Operative.
+  String get addPreOperative => '/operative/pre-operative/add';
 }
 
 class RECached {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_registry/feature/operative/ui/pre_operative/controller/pre_operative_controller.dart';
+import 'package:mobile_registry/feature/operative/ui/pre_operative/dashboard/controller/pre_operative_controller.dart';
 import 'package:mobile_registry/shared_library/components/card/info_patient_widget.dart';
 import 'package:mobile_registry/shared_library/lifecycle/view_state.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
 import 'package:mobile_registry/shared_library/state/empty_state.dart';
 import 'package:mobile_registry/shared_library/state/se_error_page.dart';
 import 'package:mobile_registry/shared_library/state/se_loading_page.dart';
+import 'package:mobile_registry/shared_library/utils/constants.dart';
 
 class PreOperativePage extends StatefulWidget {
   const PreOperativePage({Key? key}) : super(key: key);
@@ -44,10 +45,14 @@ class _PreOperativePageState extends State<PreOperativePage> {
                   itemBuilder: (context, index) {
                     return InfoPatientWidget(
                       title: _controller.listPreOperative[index].name,
-                      subTitle: _controller.listPreOperative[index].domainCaseName,
-                      childSubTitle: _controller.listPreOperative[index].hospital,
-                      rightContent: _controller.listPreOperative[index].management,
-                      subRightContent: _controller.listPreOperative[index].gender,
+                      subTitle:
+                          _controller.listPreOperative[index].domainCaseName,
+                      childSubTitle:
+                          _controller.listPreOperative[index].hospital,
+                      rightContent:
+                          _controller.listPreOperative[index].management,
+                      subRightContent:
+                          _controller.listPreOperative[index].gender,
                     );
                   });
             case Status.ERROR:
@@ -62,6 +67,13 @@ class _PreOperativePageState extends State<PreOperativePage> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => _navigateToAddPreOperativePage(),
+      ),
     );
   }
+
+  void _navigateToAddPreOperativePage() =>
+      Get.toNamed(Constants.reRoute.addPreOperative);
 }

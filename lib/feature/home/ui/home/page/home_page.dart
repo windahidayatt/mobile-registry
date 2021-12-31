@@ -24,12 +24,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    ever(_controller.viewState, (ViewState value){
-      if(value.status == Status.LOADING){
+    ever(_controller.viewState, (ViewState value) {
+      if (value.status == Status.LOADING) {
         Get.dialog(const SELoading());
       }
 
-      if(value.status == Status.ERROR){
+      if (value.status == Status.ERROR) {
         SEError.show(error: value.message);
       }
     });
@@ -39,11 +39,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mobile Registry'),
+        title: Obx(
+          () => Text(_controller.indexPage.value.title),
+        ),
         centerTitle: true,
       ),
       body: Obx(
-        () => _controller.pages[_controller.indexPage.value],
+        () => _controller.pages[_controller.indexPage.value.getIndex],
       ),
       drawer: Drawer(
         child: SafeArea(
@@ -105,7 +107,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _appInfo(){
+  Widget _appInfo() {
     return ListTile(
       title: Row(
         children: [
@@ -114,21 +116,21 @@ class _HomePageState extends State<HomePage> {
             height: 16.w,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: Assets.image.icon.logo,
-                    fit: BoxFit.cover
-                )
-            ),
+                    image: Assets.image.icon.logo, fit: BoxFit.cover)),
           ),
           SizedBox(width: 2.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Shoulder\nElbow Registry', style: TextStyle(
-                fontFamily: FontFamily.inter,
-                fontWeight: FontWeight.w800,
-                color: ColorTone.reLightBlack,
-                fontSize: 12.sp,
-              ),),
+              Text(
+                'Shoulder\nElbow Registry',
+                style: TextStyle(
+                  fontFamily: FontFamily.inter,
+                  fontWeight: FontWeight.w800,
+                  color: ColorTone.reLightBlack,
+                  fontSize: 12.sp,
+                ),
+              ),
               Text(
                 "Registry Version 1.0",
                 textAlign: TextAlign.center,
@@ -146,7 +148,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _changePage(HomePageType homePageType) {
-    _controller.indexPage(homePageType.value);
+    _controller.indexPage(homePageType);
     Get.back();
   }
 }
