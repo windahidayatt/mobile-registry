@@ -4,6 +4,7 @@ import 'package:mobile_registry/domain/operative/data/datasources/operative_remo
 import 'package:mobile_registry/domain/operative/domain/entities/intra_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/post_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/pre_operative.dart';
+import 'package:mobile_registry/domain/operative/domain/entities/pre_patients.dart';
 import 'package:mobile_registry/domain/operative/domain/repositories/operative_repository.dart';
 import 'package:mobile_registry/shared_library/exception/api_exceptions.dart';
 import 'package:mobile_registry/shared_library/failure/failure.dart';
@@ -63,6 +64,34 @@ class OperativeRepositoryImpl implements OperativeRepository {
       return Right(patients);
     } on APIException catch (error) {
       return Left(APIFailure(message: error.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<PrePatients>>> getPrePatients(
+      NoParams params) async {
+    try {
+      var result = await remoteDatasource.getPrePatients();
+      List<PrePatients> patients = List<PrePatients>.from(
+        result.map(
+          (x) => PrePatients.fromDTO(x),
+        ),
+      );
+      return Right(patients);
+    } on APIException catch (error) {
+      return Left(APIFailure(message: error.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> addPreOperative(NoParams params) async {
+    try {
+      var result = await remoteDatasource.addPreOperative();
+      return Right(result);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
     }
   }
 }

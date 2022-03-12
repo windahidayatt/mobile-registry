@@ -76,7 +76,7 @@ class PostOperativeResponseDTO {
   final String type;
   final String step;
   final int registrationId;
-  final int shoulderSpecialTestId;
+  final int? shoulderSpecialTestId;
   final String followUp;
   final String preciseFollowUpDuration;
   final String vasScore;
@@ -87,7 +87,7 @@ class PostOperativeResponseDTO {
   final String internalRotation;
   final String asesScore;
   final String dashScore;
-  final String asesScoreFile;
+  final String? asesScoreFile;
   final dynamic xRayFile;
   final dynamic ctScanFile;
   final dynamic mriFile;

@@ -2,9 +2,11 @@ import 'package:mobile_registry/domain/operative/data/datasources/operative_loca
 import 'package:mobile_registry/domain/operative/data/datasources/operative_remote_datasource.dart';
 import 'package:mobile_registry/domain/operative/data/repositories/operative_repository_impl.dart';
 import 'package:mobile_registry/domain/operative/domain/repositories/operative_repository.dart';
+import 'package:mobile_registry/domain/operative/domain/usecases/add_pre_operative_usecase.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/get_intra_operatives_usecase.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/get_post_operatives_usecase.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/get_pre_operatives_usecase.dart';
+import 'package:mobile_registry/domain/operative/domain/usecases/get_pre_patients_usecase.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
 
 class OperativeDomainDependencies {
@@ -27,6 +29,16 @@ class OperativeDomainDependencies {
     );
     sl.registerLazySingleton<GetPostOperativesUseCase>(
       () => GetPostOperativesUseCase(
+        sl(),
+      ),
+    );
+    sl.registerLazySingleton<GetPrePatientsUseCase>(
+          () => GetPrePatientsUseCase(
+        sl(),
+      ),
+    );
+    sl.registerLazySingleton<AddPreOperativeUseCase>(
+          () => AddPreOperativeUseCase(
         sl(),
       ),
     );

@@ -15,9 +15,12 @@ class HttpHandler {
     return http.get(url, headers: httpHeaders);
   }
 
-  Future<http.Response> post(Uri url) {
+  Future<http.Response> post(
+    Uri url,
+    Object body,
+  ) {
     Map<String, String> httpHeaders = _setHeader();
-    return http.post(url, headers: httpHeaders);
+    return http.post(url, headers: httpHeaders, body: body);
   }
 
   Future<http.Response> put(Uri url) {

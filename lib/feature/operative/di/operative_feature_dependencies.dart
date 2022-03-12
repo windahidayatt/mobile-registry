@@ -26,7 +26,10 @@ class OperativeFeatureDependencies {
       ),
     );
     sl.registerFactory<AddPreOperativeController>(
-      () => AddPreOperativeController(),
+      () => AddPreOperativeController(
+        getPrePatientsUseCase: sl(),
+        addPreOperativeUseCase: sl(),
+      ),
     );
   }
 }
