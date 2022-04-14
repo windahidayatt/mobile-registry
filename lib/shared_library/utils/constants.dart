@@ -11,6 +11,7 @@ class REApi {
   String get endpoint => 'registry.dreamediasolution.xyz';
   String get login => '/api/login';
   String get patient => '/api/patient';
+  String get domainCase => '/api/domain-case';
   String get preOperatives => '/api/preoperative';
   String get intraOperatives => '/api/intraoperative';
   String get postOperatives => '/api/postoperative';
@@ -28,6 +29,9 @@ class RERoute {
 
   // Operative.
   String get addPreOperative => '/operative/pre-operative/add';
+
+  // Add Patient.
+  String get addPatient => '/management/patient/add';
 }
 
 class RECached {

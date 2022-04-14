@@ -9,6 +9,7 @@ import 'package:mobile_registry/shared_library/state/empty_state.dart';
 import 'package:mobile_registry/shared_library/state/se_error_page.dart';
 import 'package:mobile_registry/shared_library/state/se_loading_page.dart';
 import 'package:mobile_registry/shared_library/utils/color_tone.dart';
+import 'package:mobile_registry/shared_library/utils/constants.dart';
 
 class PatientDataPage extends StatefulWidget {
   const PatientDataPage({Key? key}) : super(key: key);
@@ -66,7 +67,7 @@ class _PatientDataPageState extends State<PatientDataPage> {
       }),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => _navigateToAddPatient(),
       ),
     );
   }
@@ -76,6 +77,9 @@ class _PatientDataPageState extends State<PatientDataPage> {
       DetailPatientPage(patient: patient),
     );
   }
+
+  void _navigateToAddPatient() =>
+      Get.toNamed(Constants.reRoute.addPatient);
 
   Widget _patientCard(Patient patient) {
     return GestureDetector(
@@ -118,7 +122,11 @@ class _PatientDataPageState extends State<PatientDataPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(patient.management),
+                    Text(
+                      patient.management,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 2.0, horizontal: 8.0),

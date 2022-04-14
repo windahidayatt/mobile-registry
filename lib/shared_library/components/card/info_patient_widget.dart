@@ -58,7 +58,11 @@ class InfoPatientWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(rightContent),
+                    Text(
+                      rightContent,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 2.0, horizontal: 8.0),

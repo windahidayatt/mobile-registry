@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_registry/domain/management_report/data/datasources/management_report_local_datasource.dart';
 import 'package:mobile_registry/domain/management_report/data/datasources/management_report_remote_datasource.dart';
+import 'package:mobile_registry/domain/management_report/domain/entities/domain_case.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/patient.dart';
 import 'package:mobile_registry/domain/management_report/domain/repositories/management_report_repository.dart';
 import 'package:mobile_registry/domain/management_report/domain/usecases/add_patient_usecase.dart';
@@ -53,5 +54,23 @@ class ManagementReportRepositoryImpl implements ManagementReportRepository {
   Future<Either<Failure, bool>> addPatient(AddPatientParams params) {
     // TODO: implement addPatient
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<DomainCase>>> getDomainCase(
+      NoParams params) async {
+    try {
+      var result = await remoteDatasource.getDomainCase();
+      List<DomainCase> patients = List<DomainCase>.from(
+        result.map(
+          (x) => DomainCase.fromDTO(x),
+        ),
+      );
+      return Right(patients);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
+    }
   }
 }
