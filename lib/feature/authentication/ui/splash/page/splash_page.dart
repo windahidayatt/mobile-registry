@@ -36,12 +36,42 @@ class _SplashPageState extends State<SplashPage> {
             ),
             Container(
               width: double.infinity,
-              margin: EdgeInsets.all(2.h),
+              margin: EdgeInsets.symmetric(horizontal: 24.w),
               height: 20.h,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: Assets.image.icon.logo,
-              )),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(1.h),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: Assets.image.main.inases,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(1.h),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: Assets.image.main.unpad,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(1.h),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: Assets.image.main.orthopaedi,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Text(
               "Shoulder and Elbow\nRegistry",

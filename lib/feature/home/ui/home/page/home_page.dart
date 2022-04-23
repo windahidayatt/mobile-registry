@@ -109,14 +109,47 @@ class _HomePageState extends State<HomePage> {
 
   Widget _appInfo() {
     return ListTile(
-      title: Row(
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 16.w,
+          SizedBox(
+            width: double.infinity,
             height: 16.w,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: Assets.image.icon.logo, fit: BoxFit.cover)),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.all(1.h),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Assets.image.main.inases,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.all(1.h),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Assets.image.main.unpad,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.all(1.h),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Assets.image.main.orthopaedi,
+                      ),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+              ],
+            ),
           ),
           SizedBox(width: 2.w),
           Column(
