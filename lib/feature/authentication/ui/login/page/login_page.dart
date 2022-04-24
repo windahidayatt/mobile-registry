@@ -57,8 +57,44 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           width: double.infinity,
-          height: 30.h,
+          height: 12.w,
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: Assets.image.main.inases,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: Assets.image.main.unpad,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: Assets.image.main.orthopaedi,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 24.h,
           decoration: BoxDecoration(
               image: DecorationImage(
                 image: Assets.image.main.splashMainImage,
@@ -66,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         SizedBox(height: 2.h),
         Text(
-          "Silahkan Login",
+          "Shoulder & Elbow Registry",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: FontFamily.inter,

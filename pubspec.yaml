@@ -48,6 +48,8 @@ dependencies:
   sizer: ^2.0.15
   # Inspector Http
   shake: ^2.0.0
+  # Slide Delete
+  flutter_slidable: ^1.2.0
 
 dev_dependencies:
   flutter_test:

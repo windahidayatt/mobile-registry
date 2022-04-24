@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:mobile_registry/shared_library/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +22,11 @@ class HttpHandler {
     Object body,
   ) {
     Map<String, String> httpHeaders = _setHeader();
-    return http.post(url, headers: httpHeaders, body: body);
+    return http.post(
+      url,
+      headers: httpHeaders,
+      body: jsonEncode(body),
+    );
   }
 
   Future<http.Response> put(Uri url) {
@@ -37,7 +43,7 @@ class HttpHandler {
     String? token = sharedPreferences.getString(Constants.reCached.token);
     return {
       'Content-Type': 'application/json',
-      'Accept': 'aplication/json',
+      'Accept': 'application/json',
       'Authorization': 'Bearer ' + (token ?? ""),
     };
   }

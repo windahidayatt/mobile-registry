@@ -8,7 +8,7 @@ class Constants {
 
 class REApi {
   const REApi();
-  String get endpoint => 'registry.dreamediasolution.xyz';
+  String get endpoint => 'inashoulder-registry.com';
   String get login => '/api/login';
   String get patient => '/api/patient';
   String get domainCase => '/api/domain-case';

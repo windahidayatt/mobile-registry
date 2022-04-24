@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_registry/domain/management_report/data/datasources/management_report_local_datasource.dart';
 import 'package:mobile_registry/domain/management_report/data/datasources/management_report_remote_datasource.dart';
+import 'package:mobile_registry/domain/management_report/data/models/patient_add_request_dto.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/domain_case.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/patient.dart';
 import 'package:mobile_registry/domain/management_report/domain/repositories/management_report_repository.dart';
@@ -51,9 +52,29 @@ class ManagementReportRepositoryImpl implements ManagementReportRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> addPatient(AddPatientParams params) {
-    // TODO: implement addPatient
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> addPatient(AddPatientParams params) async {
+    try {
+      var result = await remoteDatasource.addPatient(
+        PatientAddRequestDTO(
+            domainCase: params.domainCase,
+            domainManagement: params.domainManagement,
+            name: params.name,
+            age: params.age,
+            gender: params.gender,
+            weight: params.weight,
+            height: params.height,
+            hospital: params.hospital,
+            medicalRecord: params.medicalRecord,
+            phoneNumber: params.phoneNumber,
+            diagnosis: params.diagnosis,
+            management: params.management),
+      );
+      return Right(result);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
+    }
   }
 
   @override

@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/patient.dart';
 import 'package:mobile_registry/feature/management_report/ui/detail_patient/page/detail_patient_page.dart';
@@ -45,13 +47,6 @@ class _PatientDataPageState extends State<PatientDataPage> {
               itemCount: _controller.listPatient.length,
               itemBuilder: (context, index) {
                 return _patientCard(_controller.listPatient[index]);
-                /*
-                return InfoPatientWidget(
-                    title: _controller.listPatient[index].name,
-                    subTitle: _controller.listPatient[index].domainManagement,
-                    childSubTitle: _controller.listPatient[index].hospital,
-                    rightContent: _controller.listPatient[index].management,
-                    subRightContent: _controller.listPatient[index].gender);*/
               },
             );
           case Status.ERROR:
@@ -86,68 +81,94 @@ class _PatientDataPageState extends State<PatientDataPage> {
       onTap: () {
         _navigateToDetailPage(patient);
       },
-      child: Card(
-        child: Row(
+      child: Slidable(
+        endActionPane: ActionPane(
+          key: ValueKey(patient.id),
+          motion: const ScrollMotion(),
           children: [
-            Expanded(
-              flex: 8,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      patient.name,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    Text(
-                      patient.domainManagement,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    Text(
-                      patient.hospital,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                  ],
-                ),
-              ),
+            SlidableAction(
+              onPressed: (_){
+                log('Do Edit');
+              },
+              backgroundColor: ColorTone.reGreen,
+              foregroundColor: Colors.white,
+              icon: Icons.edit,
+              label: 'Edit',
             ),
-            Expanded(
-              flex: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      patient.management,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 2.0, horizontal: 8.0),
-                      child: Text(
-                        patient.gender,
-                        style: const TextStyle(color: ColorTone.reWhite),
-                      ),
-                      decoration: BoxDecoration(
-                          color: (patient.gender.toUpperCase() ==
-                                  'Male'.toUpperCase())
-                              ? ColorTone.reBlue
-                              : ColorTone.reOrange,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
+            SlidableAction(
+              onPressed: (_){
+                log('Do Delete');
+              },
+              backgroundColor: ColorTone.reRed,
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
             )
           ],
+        ),
+        child: Card(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        patient.name ?? '-',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      Text(
+                        patient.domainManagement ?? '-',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      Text(
+                        'Medical Record: ${patient.medicalRecord ?? '-'}',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        patient.management ?? '-',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 2.0, horizontal: 8.0),
+                        child: Text(
+                          patient.gender ?? '-',
+                          style: const TextStyle(color: ColorTone.reWhite),
+                        ),
+                        decoration: BoxDecoration(
+                            color: (patient.gender?.toUpperCase() ==
+                                'Male'.toUpperCase())
+                                ? ColorTone.reBlue
+                                : ColorTone.reOrange,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

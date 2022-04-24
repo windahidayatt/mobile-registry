@@ -50,16 +50,19 @@ class _AddPatientPageState extends State<AddPatientPage> {
               child: Column(
                 children: [
                   _paddingWrapper(
-                    child: DropdownButtonFormField<int>(
+                    child: DropdownButtonFormField<String>(
                       isExpanded: true,
                       hint: const Text("Domain Case"),
+                      value: _controller.domainCase,
                       items: _controller.listDomainCase.map((value) {
                         return DropdownMenuItem(
                           child: Text(value.name),
-                          value: value.id,
+                          value: value.name,
                         );
                       }).toList(),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        _controller.domainCase = value ?? '';
+                      },
                       decoration: InputDecoration(
                         isDense: true,
                         labelText: "Domain Case",
@@ -81,13 +84,16 @@ class _AddPatientPageState extends State<AddPatientPage> {
                     child: DropdownButtonFormField<String>(
                       isExpanded: true,
                       hint: const Text("Domain Management"),
+                      value: _controller.domainManagement,
                       items: _controller.listDomainManagement.map((value) {
                         return DropdownMenuItem(
                           child: Text(value),
                           value: value,
                         );
                       }).toList(),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        _controller.domainManagement = value ?? '';
+                      },
                       decoration: InputDecoration(
                         isDense: true,
                         labelText: "Domain Management",
@@ -95,19 +101,19 @@ class _AddPatientPageState extends State<AddPatientPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide:
-                          const BorderSide(color: ColorTone.reDarkGrey),
+                              const BorderSide(color: ColorTone.reDarkGrey),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
                           borderSide:
-                          const BorderSide(color: ColorTone.reDarkGrey),
+                              const BorderSide(color: ColorTone.reDarkGrey),
                         ),
                       ),
                     ),
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.nameText,
                       label: "Name",
                       validator: null,
                       prefixIcon: const Icon(
@@ -118,7 +124,7 @@ class _AddPatientPageState extends State<AddPatientPage> {
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.ageText,
                       label: "Age",
                       validator: null,
                       prefixIcon: const Icon(
@@ -128,19 +134,42 @@ class _AddPatientPageState extends State<AddPatientPage> {
                     ),
                   ),
                   _paddingWrapper(
-                    child: RETextField(
-                      controller: TextEditingController(),
-                      label: "Gender",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      hint: const Text("Gender"),
+                      value: _controller.gender,
+                      items: _controller.listGender.map((value) {
+                        return DropdownMenuItem(
+                          child: Text(value),
+                          value: value,
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        _controller.gender = value ?? '';
+                      },
+                      decoration: InputDecoration(
+                        isDense: true,
+                        labelText: "Gender",
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: ColorTone.reDarkGrey,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide:
+                              const BorderSide(color: ColorTone.reDarkGrey),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide:
+                              const BorderSide(color: ColorTone.reDarkGrey),
+                        ),
                       ),
                     ),
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.weightText,
                       label: "Weight (kg)",
                       validator: null,
                       prefixIcon: const Icon(
@@ -151,7 +180,7 @@ class _AddPatientPageState extends State<AddPatientPage> {
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.heightText,
                       label: "Height (cm)",
                       validator: null,
                       prefixIcon: const Icon(
@@ -161,19 +190,42 @@ class _AddPatientPageState extends State<AddPatientPage> {
                     ),
                   ),
                   _paddingWrapper(
-                    child: RETextField(
-                      controller: TextEditingController(),
-                      label: "Hospital",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      hint: const Text("Hospital"),
+                      value: _controller.hospital,
+                      items: _controller.listHospital.map((value) {
+                        return DropdownMenuItem(
+                          child: Text(value),
+                          value: value,
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        _controller.hospital = value ?? '';
+                      },
+                      decoration: InputDecoration(
+                        isDense: true,
+                        labelText: "Hospital",
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: ColorTone.reDarkGrey,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide:
+                              const BorderSide(color: ColorTone.reDarkGrey),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide:
+                              const BorderSide(color: ColorTone.reDarkGrey),
+                        ),
                       ),
                     ),
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.medicalRecordText,
                       label: "Medical Record",
                       validator: null,
                       prefixIcon: const Icon(
@@ -184,7 +236,7 @@ class _AddPatientPageState extends State<AddPatientPage> {
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.phoneText,
                       label: "Phone Number",
                       validator: null,
                       prefixIcon: const Icon(
@@ -195,7 +247,7 @@ class _AddPatientPageState extends State<AddPatientPage> {
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.diagnosticText,
                       label: "Diagnosis",
                       validator: null,
                       prefixIcon: const Icon(
@@ -206,7 +258,7 @@ class _AddPatientPageState extends State<AddPatientPage> {
                   ),
                   _paddingWrapper(
                     child: RETextField(
-                      controller: TextEditingController(),
+                      controller: _controller.managementText,
                       label: "Management",
                       validator: null,
                       prefixIcon: const Icon(
@@ -226,7 +278,7 @@ class _AddPatientPageState extends State<AddPatientPage> {
                           flex: 2,
                           child: REButton(
                             label: 'Add',
-                            onTap: () => {},
+                            onTap: () => _controller.addPatient(),
                           ),
                         ),
                       ],

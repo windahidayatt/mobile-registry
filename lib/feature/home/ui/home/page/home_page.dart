@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_registry/feature/home/enum/home_page_type.dart';
 import 'package:mobile_registry/feature/home/ui/home/controller/home_controller.dart';
-import 'package:mobile_registry/gen/assets.gen.dart';
 import 'package:mobile_registry/gen/fonts.gen.dart';
 import 'package:mobile_registry/shared_library/lifecycle/view_state.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
@@ -113,67 +112,25 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: double.infinity,
-            height: 16.w,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.all(1.h),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: Assets.image.main.inases,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.all(1.h),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: Assets.image.main.unpad,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.all(1.h),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: Assets.image.main.orthopaedi,
-                      ),
-                    ),
-                  ),
-                ),
-                const Spacer(),
-              ],
+            height: 2.h,
+          ),
+          Text(
+            'Shoulder\nElbow Registry',
+            style: TextStyle(
+              fontFamily: FontFamily.inter,
+              fontWeight: FontWeight.w800,
+              color: ColorTone.reLightBlack,
+              fontSize: 12.sp,
             ),
           ),
-          SizedBox(width: 2.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Shoulder\nElbow Registry',
-                style: TextStyle(
-                  fontFamily: FontFamily.inter,
-                  fontWeight: FontWeight.w800,
-                  color: ColorTone.reLightBlack,
-                  fontSize: 12.sp,
-                ),
-              ),
-              Text(
-                "Registry Version 1.0",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: FontFamily.inter,
-                  color: ColorTone.reLightBlack,
-                  fontSize: 8.sp,
-                ),
-              )
-            ],
+          Text(
+            "Registry Version 1.0",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: FontFamily.inter,
+              color: ColorTone.reLightBlack,
+              fontSize: 8.sp,
+            ),
           )
         ],
       ),
