@@ -48,7 +48,7 @@ class _PreOperativePageState extends State<PreOperativePage> {
                       subTitle:
                           _controller.listPreOperative[index].domainCaseName,
                       childSubTitle:
-                          _controller.listPreOperative[index].hospital,
+                          'Medical Record: ${_controller.listPreOperative[index].medicalRecord}',
                       rightContent:
                           _controller.listPreOperative[index].management,
                       subRightContent:

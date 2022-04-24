@@ -5,7 +5,7 @@ class PreOperative extends Equatable {
   final int id;
   final String name;
   final String domainCaseName;
-  final String hospital;
+  final String medicalRecord;
   final String management;
   final String gender;
 
@@ -13,18 +13,18 @@ class PreOperative extends Equatable {
     required this.id,
     required this.name,
     required this.domainCaseName,
-    required this.hospital,
+    required this.medicalRecord,
     required this.management,
     required this.gender,
   });
 
   factory PreOperative.fromDTO(PreOperativeResponseDTO dto) => PreOperative(
-        id: dto.id,
-        name: dto.name,
-        domainCaseName: dto.domainCaseName,
-        hospital: dto.hospital,
-        management: dto.management,
-        gender: dto.gender,
+        id: int.parse(dto.id ?? ''),
+        name: dto.name ?? '',
+        domainCaseName: dto.domainCaseName ?? '',
+        medicalRecord: dto.medicalRecord ?? '',
+        management: dto.management ?? '',
+        gender: dto.gender ?? '',
       );
 
   @override

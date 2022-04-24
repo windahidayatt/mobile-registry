@@ -43,10 +43,14 @@ class _IntraOperativePageState extends State<IntraOperativePage> {
                 itemBuilder: (context, index) {
                   return InfoPatientWidget(
                     title: _controller.listIntraOperative[index].name,
-                    subTitle: _controller.listIntraOperative[index].domainCaseName,
-                    childSubTitle: _controller.listIntraOperative[index].hospital,
-                    rightContent: _controller.listIntraOperative[index].management,
-                    subRightContent: _controller.listIntraOperative[index].gender,
+                    subTitle:
+                        _controller.listIntraOperative[index].domainCaseName,
+                    childSubTitle:
+                        'Medical Record: ${_controller.listIntraOperative[index].medicalRecord}',
+                    rightContent:
+                        _controller.listIntraOperative[index].management,
+                    subRightContent:
+                        _controller.listIntraOperative[index].gender,
                   );
                 });
           case Status.ERROR:

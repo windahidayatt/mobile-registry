@@ -11,182 +11,186 @@ String preOperativeResponseDtoToJson(List<PreOperativeResponseDTO> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class PreOperativeResponseDTO {
-  PreOperativeResponseDTO({
-    required this.id,
-    required this.domainCaseName,
-    required this.domainCaseId,
-    required this.domainManagement,
-    required this.name,
-    required this.age,
-    required this.gender,
-    required this.weight,
-    required this.height,
-    required this.hospital,
-    required this.medicalRecord,
-    required this.phoneNumber,
-    required this.diagnosis,
-    required this.management,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.patientId,
-    required this.registrationNumber,
-    required this.type,
-    required this.step,
-    required this.registrationId,
-    required this.shoulderSpecialTestId,
-    required this.vasScore,
-    required this.forwardFlexion,
-    required this.abductionDegree,
-    required this.externalRotationNeutral,
-    required this.externalRotation90Abduction,
-    required this.internalRotation,
-    required this.asesScore,
-    required this.dashScore,
-    required this.asesScoreFile,
-    required this.xRayFile,
-    required this.ctScanFile,
-    required this.mriFile,
-    required this.actionPlan,
-    required this.plannedDate,
-    required this.progessSupportInvestigation,
-    required this.progessBpjsBilling,
-    required this.progessAnesthesia,
-    required this.progessComplete,
-    required this.status,
-    required this.comment,
-  });
+  String? id;
+  String? domainCaseName;
+  String? domainCaseId;
+  String? hospitalId;
+  String? domainManagement;
+  String? name;
+  String? age;
+  String? gender;
+  String? weight;
+  String? height;
+  String? medicalRecord;
+  String? phoneNumber;
+  String? diagnosis;
+  String? management;
+  String? createdAt;
+  String? updatedAt;
+  String? patientId;
+  String? registrationNumber;
+  String? type;
+  String? step;
+  String? registrationId;
+  String? shoulderSpecialTestId;
+  String? vasScore;
+  String? forwardFlexion;
+  String? abductionDegree;
+  String? externalRotationNeutral;
+  String? externalRotation90Abduction;
+  String? internalRotation;
+  String? asesScore;
+  String? dashScore;
+  String? asesScoreFile;
+  String? xRayFile;
+  String? ctScanFile;
+  String? mriFile;
+  String? actionPlan;
+  String? plannedDate;
+  String? progressSupportInvestigation;
+  String? progressBpjsBilling;
+  String? progressBilling;
+  String? progressAnesthesia;
+  String? progressComplete;
+  String? status;
+  String? comment;
 
-  final int id;
-  final String domainCaseName;
-  final int domainCaseId;
-  final String domainManagement;
-  final String name;
-  final int age;
-  final String gender;
-  final int weight;
-  final int height;
-  final String hospital;
-  final String medicalRecord;
-  final String phoneNumber;
-  final String diagnosis;
-  final String management;
-  final String createdAt;
-  final String updatedAt;
-  final int patientId;
-  final String registrationNumber;
-  final String type;
-  final String step;
-  final int registrationId;
-  final int? shoulderSpecialTestId;
-  final String vasScore;
-  final String forwardFlexion;
-  final String abductionDegree;
-  final String externalRotationNeutral;
-  final String externalRotation90Abduction;
-  final String internalRotation;
-  final String asesScore;
-  final String dashScore;
-  final String? asesScoreFile;
-  final String? xRayFile;
-  final String? ctScanFile;
-  final String? mriFile;
-  final String? actionPlan;
-  final String? plannedDate;
-  final int progessSupportInvestigation;
-  final int progessBpjsBilling;
-  final int progessAnesthesia;
-  final int progessComplete;
-  final int status;
-  final String? comment;
+  PreOperativeResponseDTO(
+      {this.id,
+        this.domainCaseName,
+        this.domainCaseId,
+        this.hospitalId,
+        this.domainManagement,
+        this.name,
+        this.age,
+        this.gender,
+        this.weight,
+        this.height,
+        this.medicalRecord,
+        this.phoneNumber,
+        this.diagnosis,
+        this.management,
+        this.createdAt,
+        this.updatedAt,
+        this.patientId,
+        this.registrationNumber,
+        this.type,
+        this.step,
+        this.registrationId,
+        this.shoulderSpecialTestId,
+        this.vasScore,
+        this.forwardFlexion,
+        this.abductionDegree,
+        this.externalRotationNeutral,
+        this.externalRotation90Abduction,
+        this.internalRotation,
+        this.asesScore,
+        this.dashScore,
+        this.asesScoreFile,
+        this.xRayFile,
+        this.ctScanFile,
+        this.mriFile,
+        this.actionPlan,
+        this.plannedDate,
+        this.progressSupportInvestigation,
+        this.progressBpjsBilling,
+        this.progressBilling,
+        this.progressAnesthesia,
+        this.progressComplete,
+        this.status,
+        this.comment});
 
-  factory PreOperativeResponseDTO.fromJson(Map<String, dynamic> json) =>
-      PreOperativeResponseDTO(
-        id: json["id"],
-        domainCaseName: json["domain_case_name"],
-        domainCaseId: json["domain_case_id"],
-        domainManagement: json["domain_management"],
-        name: json["name"],
-        age: json["age"],
-        gender: json["gender"],
-        weight: json["weight"],
-        height: json["height"],
-        hospital: json["hospital"],
-        medicalRecord: json["medical_record"],
-        phoneNumber: json["phone_number"],
-        diagnosis: json["diagnosis"],
-        management: json["management"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        patientId: json["patient_id"],
-        registrationNumber: json["registration_number"],
-        type: json["type"],
-        step: json["step"],
-        registrationId: json["registration_id"],
-        shoulderSpecialTestId: json["shoulder_special_test_id"],
-        vasScore: json["vas_score"],
-        forwardFlexion: json["forward_flexion"],
-        abductionDegree: json["abduction_degree"],
-        externalRotationNeutral: json["external_rotation_neutral"],
-        externalRotation90Abduction: json["external_rotation_90_abduction"],
-        internalRotation: json["internal_rotation"],
-        asesScore: json["ases_score"],
-        dashScore: json["dash_score"],
-        asesScoreFile: json["ases_score_file"],
-        xRayFile: json["x_ray_file"],
-        ctScanFile: json["ct_scan_file"],
-        mriFile: json["mri_file"],
-        actionPlan: json["action_plan"],
-        plannedDate: json["planned_date"],
-        progessSupportInvestigation: json["progess_support_investigation"],
-        progessBpjsBilling: json["progess_bpjs_billing"],
-        progessAnesthesia: json["progess_anesthesia"],
-        progessComplete: json["progess_complete"],
-        status: json["status"],
-        comment: json["comment"],
-      );
+  PreOperativeResponseDTO.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    domainCaseName = json['domain_case_name'];
+    domainCaseId = json['domain_case_id'];
+    hospitalId = json['hospital_id'];
+    domainManagement = json['domain_management'];
+    name = json['name'];
+    age = json['age'];
+    gender = json['gender'];
+    weight = json['weight'];
+    height = json['height'];
+    medicalRecord = json['medical_record'];
+    phoneNumber = json['phone_number'];
+    diagnosis = json['diagnosis'];
+    management = json['management'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    patientId = json['patient_id'];
+    registrationNumber = json['registration_number'];
+    type = json['type'];
+    step = json['step'];
+    registrationId = json['registration_id'];
+    shoulderSpecialTestId = json['shoulder_special_test_id'];
+    vasScore = json['vas_score'];
+    forwardFlexion = json['forward_flexion'];
+    abductionDegree = json['abduction_degree'];
+    externalRotationNeutral = json['external_rotation_neutral'];
+    externalRotation90Abduction = json['external_rotation_90_abduction'];
+    internalRotation = json['internal_rotation'];
+    asesScore = json['ases_score'];
+    dashScore = json['dash_score'];
+    asesScoreFile = json['ases_score_file'];
+    xRayFile = json['x_ray_file'];
+    ctScanFile = json['ct_scan_file'];
+    mriFile = json['mri_file'];
+    actionPlan = json['action_plan'];
+    plannedDate = json['planned_date'];
+    progressSupportInvestigation = json['progress_support_investigation'];
+    progressBpjsBilling = json['progress_bpjs_billing'];
+    progressBilling = json['progress_billing'];
+    progressAnesthesia = json['progress_anesthesia'];
+    progressComplete = json['progress_complete'];
+    status = json['status'];
+    comment = json['comment'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "domain_case_name": domainCaseName,
-        "domain_case_id": domainCaseId,
-        "domain_management": domainManagement,
-        "name": name,
-        "age": age,
-        "gender": gender,
-        "weight": weight,
-        "height": height,
-        "hospital": hospital,
-        "medical_record": medicalRecord,
-        "phone_number": phoneNumber,
-        "diagnosis": diagnosis,
-        "management": management,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "patient_id": patientId,
-        "registration_number": registrationNumber,
-        "type": type,
-        "step": step,
-        "registration_id": registrationId,
-        "shoulder_special_test_id": shoulderSpecialTestId,
-        "vas_score": vasScore,
-        "forward_flexion": forwardFlexion,
-        "abduction_degree": abductionDegree,
-        "external_rotation_neutral": externalRotationNeutral,
-        "external_rotation_90_abduction": externalRotation90Abduction,
-        "internal_rotation": internalRotation,
-        "ases_score": asesScore,
-        "dash_score": dashScore,
-        "ases_score_file": asesScoreFile,
-        "x_ray_file": xRayFile,
-        "ct_scan_file": ctScanFile,
-        "mri_file": mriFile,
-        "action_plan": actionPlan,
-        "planned_date": plannedDate,
-        "progess_support_investigation": progessSupportInvestigation,
-        "progess_bpjs_billing": progessBpjsBilling,
-        "progess_anesthesia": progessAnesthesia,
-        "progess_complete": progessComplete,
-        "status": status,
-        "comment": comment,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['domain_case_name'] = domainCaseName;
+    data['domain_case_id'] = domainCaseId;
+    data['hospital_id'] = hospitalId;
+    data['domain_management'] = domainManagement;
+    data['name'] = name;
+    data['age'] = age;
+    data['gender'] = gender;
+    data['weight'] = weight;
+    data['height'] = height;
+    data['medical_record'] = medicalRecord;
+    data['phone_number'] = phoneNumber;
+    data['diagnosis'] = diagnosis;
+    data['management'] = management;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['patient_id'] = patientId;
+    data['registration_number'] = registrationNumber;
+    data['type'] = type;
+    data['step'] = step;
+    data['registration_id'] = registrationId;
+    data['shoulder_special_test_id'] = shoulderSpecialTestId;
+    data['vas_score'] = vasScore;
+    data['forward_flexion'] = forwardFlexion;
+    data['abduction_degree'] = abductionDegree;
+    data['external_rotation_neutral'] = externalRotationNeutral;
+    data['external_rotation_90_abduction'] = externalRotation90Abduction;
+    data['internal_rotation'] = internalRotation;
+    data['ases_score'] = asesScore;
+    data['dash_score'] = dashScore;
+    data['ases_score_file'] = asesScoreFile;
+    data['x_ray_file'] = xRayFile;
+    data['ct_scan_file'] = ctScanFile;
+    data['mri_file'] = mriFile;
+    data['action_plan'] = actionPlan;
+    data['planned_date'] = plannedDate;
+    data['progress_support_investigation'] = progressSupportInvestigation;
+    data['progress_bpjs_billing'] = progressBpjsBilling;
+    data['progress_billing'] = progressBilling;
+    data['progress_anesthesia'] = progressAnesthesia;
+    data['progress_complete'] = progressComplete;
+    data['status'] = status;
+    data['comment'] = comment;
+    return data;
+  }
 }

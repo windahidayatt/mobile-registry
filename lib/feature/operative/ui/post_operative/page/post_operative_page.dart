@@ -45,7 +45,7 @@ class _PostOperativePageState extends State<PostOperativePage> {
                     return InfoPatientWidget(
                       title: _controller.listPostOperative[index].name,
                       subTitle: _controller.listPostOperative[index].domainCaseName,
-                      childSubTitle: _controller.listPostOperative[index].hospital,
+                      childSubTitle: 'Medical Record: ${_controller.listPostOperative[index].medicalRecord}',
                       rightContent: _controller.listPostOperative[index].management,
                       subRightContent: _controller.listPostOperative[index].gender,
                     );
