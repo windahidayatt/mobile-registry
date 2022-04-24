@@ -40,9 +40,15 @@ class ManagementReportRepositoryImpl implements ManagementReportRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> deletePatient(String params) {
-    // TODO: implement deletePatient
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> deletePatient(String params) async {
+    try {
+      var result = await remoteDatasource.deletePatient(params);
+      return Right(result);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
+    }
   }
 
   @override

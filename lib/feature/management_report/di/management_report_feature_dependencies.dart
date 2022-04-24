@@ -15,6 +15,7 @@ class ManagementReportFeatureDependencies {
     );
     sl.registerFactory<PatientDataController>(
       () => PatientDataController(
+        deletePatientUseCase: sl(),
         getPatientsUseCase: sl(),
       ),
     );

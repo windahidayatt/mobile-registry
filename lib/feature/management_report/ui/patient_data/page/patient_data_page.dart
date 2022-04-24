@@ -73,8 +73,7 @@ class _PatientDataPageState extends State<PatientDataPage> {
     );
   }
 
-  void _navigateToAddPatient() =>
-      Get.toNamed(Constants.reRoute.addPatient);
+  void _navigateToAddPatient() => Get.toNamed(Constants.reRoute.addPatient);
 
   Widget _patientCard(Patient patient) {
     return GestureDetector(
@@ -87,7 +86,7 @@ class _PatientDataPageState extends State<PatientDataPage> {
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (_){
+              onPressed: (_) {
                 log('Do Edit');
               },
               backgroundColor: ColorTone.reGreen,
@@ -96,9 +95,9 @@ class _PatientDataPageState extends State<PatientDataPage> {
               label: 'Edit',
             ),
             SlidableAction(
-              onPressed: (_){
-                log('Do Delete');
-              },
+              onPressed: (_) => _controller.deletePatientsData(
+                patient.id.toString(),
+              ),
               backgroundColor: ColorTone.reRed,
               foregroundColor: Colors.white,
               icon: Icons.delete,
@@ -156,7 +155,7 @@ class _PatientDataPageState extends State<PatientDataPage> {
                         ),
                         decoration: BoxDecoration(
                             color: (patient.gender?.toUpperCase() ==
-                                'Male'.toUpperCase())
+                                    'Male'.toUpperCase())
                                 ? ColorTone.reBlue
                                 : ColorTone.reOrange,
                             borderRadius: const BorderRadius.all(
