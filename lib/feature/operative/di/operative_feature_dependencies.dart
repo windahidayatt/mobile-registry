@@ -2,6 +2,7 @@ import 'package:mobile_registry/feature/operative/ui/intra_operative/controller/
 import 'package:mobile_registry/feature/operative/ui/post_operative/controller/post_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/pre_operative/add/controller/add_pre_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/pre_operative/dashboard/controller/pre_operative_controller.dart';
+import 'package:mobile_registry/feature/operative/ui/pre_operative/detail/controller/detail_pre_operative_controller.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
 
 class OperativeFeatureDependencies {
@@ -12,6 +13,7 @@ class OperativeFeatureDependencies {
   void _registerController() {
     sl.registerFactory<PreOperativeController>(
       () => PreOperativeController(
+        deletePreOperativeUseCase: sl(),
         getPreOperativesUseCase: sl(),
       ),
     );
@@ -30,6 +32,9 @@ class OperativeFeatureDependencies {
         getPrePatientsUseCase: sl(),
         addPreOperativeUseCase: sl(),
       ),
+    );
+    sl.registerFactory<DetailPreOperativeController>(
+      () => DetailPreOperativeController(),
     );
   }
 }

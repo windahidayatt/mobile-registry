@@ -65,11 +65,6 @@ class _HomePageState extends State<HomePage> {
                       title: const Text('Patient Data'),
                       onTap: () => _changePage(HomePageType.patientData),
                     ),
-                    ListTile(
-                      leading: const Icon(Icons.folder),
-                      title: const Text('Patient Report'),
-                      onTap: () => _changePage(HomePageType.report),
-                    )
                   ],
                 ),
                 ExpansionTile(

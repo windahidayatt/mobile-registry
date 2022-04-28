@@ -16,6 +16,7 @@ class AddPreOperativeController extends GetxController {
   final GetPrePatientsUseCase getPrePatientsUseCase;
   final AddPreOperativeUseCase addPreOperativeUseCase;
   final List<PrePatients> listPatients = [];
+  final List<String> listTypes = ['Shoulder', 'Elbow'];
   final Rx<ViewState> viewState = ViewState.initial().obs;
 
   TextEditingController patientController = TextEditingController();
@@ -30,9 +31,9 @@ class AddPreOperativeController extends GetxController {
   TextEditingController dashScoreController = TextEditingController();
   TextEditingController actionPlanController = TextEditingController();
   TextEditingController plannedDateController = TextEditingController();
+  TextEditingController vasScoreController = TextEditingController();
   String patientIdentity = '';
   String operativeType = '';
-  int vasScore = 0;
   Rx<String> plannedDate = ''.obs;
   late Rx<bool> isSupportingInvestigation, billingByBPJS, anesthesia, complete;
   late Rx<File> americanShoulderScore, xRay, ctScan, mri;

@@ -12,4 +12,5 @@ abstract class OperativeRepository {
   Future<Either<Failure, List<PostOperative>>> getPostOperatives(NoParams params);
   Future<Either<Failure, List<PrePatients>>> getPrePatients(NoParams params);
   Future<Either<Failure, bool>> addPreOperative(NoParams params);
+  Future<Either<Failure, bool>> deletePreOperative(String params);
 }

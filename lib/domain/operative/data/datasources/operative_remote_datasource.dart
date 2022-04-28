@@ -148,4 +148,25 @@ class OperativeRemoteDatasource {
       rethrow;
     }
   }
+
+  Future<bool> deletePreOperative(String id) async {
+    Uri uri = Uri.http(
+      Constants.reAPI.endpoint,
+      Constants.reAPI.preOperatives + '/$id',
+    );
+    try {
+      final response = await httpHandler.delete(uri);
+      log('[REMOTE] : ${uri.toString()}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
+      }
+    } catch (error) {
+      log('[REMOTE ERROR] : ${error.toString()}');
+      rethrow;
+    }
+  }
 }

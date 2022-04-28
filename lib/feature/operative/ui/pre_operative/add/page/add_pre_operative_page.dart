@@ -52,54 +52,66 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
           case Status.COMPLETED:
             return ListView(
               children: [
-                DropdownButtonFormField<String>(
-                  hint: const Text("Patient Identity"),
-                  items: _controller.listPatients.map((value) {
-                    return DropdownMenuItem(
-                      child: Text(value.patientInfo),
-                      value: value.patientInfo,
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    _controller.patientIdentity = value ?? '';
-                  },
-                  decoration: InputDecoration(
-                    isDense: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                      borderSide: const BorderSide(color: ColorTone.reDarkGrey),
+                _paddingWrapper(
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    hint: const Text("Patient Identity"),
+                    items: _controller.listPatients.map((value) {
+                      return DropdownMenuItem(
+                        child: Text(value.patientInfo),
+                        value: value.patientInfo,
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      _controller.patientIdentity = value ?? '';
+                    },
+                    decoration: InputDecoration(
+                      isDense: true,
+                      prefixIcon: const Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                      borderSide: const BorderSide(color: ColorTone.reDarkGrey),
+                  ),
+                ),
+                _paddingWrapper(
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    hint: const Text("Operative Type"),
+                    items: _controller.listTypes.map((value) {
+                      return DropdownMenuItem(
+                        child: Text(value),
+                        value: value,
+                      );
+                    }).toList(),
+                    onChanged: (value) =>
+                        {_controller.operativeType = value ?? ''},
+                    decoration: InputDecoration(
+                      isDense: true,
+                      prefixIcon: const Icon(Icons.health_and_safety),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
                     ),
                   ),
                 ),
                 _paddingWrapper(
                   child: RETextField(
-                    controller: _controller.patientController,
-                    label: "Patient Identity",
-                    validator: null,
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: ColorTone.reDarkGrey,
-                    ),
-                  ),
-                ),
-                _paddingWrapper(
-                  child: RETextField(
-                    controller: TextEditingController(),
-                    label: "Operative Type",
-                    validator: null,
-                    prefixIcon: const Icon(
-                      Icons.health_and_safety,
-                      color: ColorTone.reDarkGrey,
-                    ),
-                  ),
-                ),
-                _paddingWrapper(
-                  child: RETextField(
-                    controller: TextEditingController(),
+                    controller: _controller.vasScoreController,
                     label: "VAS Score",
                     validator: null,
                     prefixIcon: const Icon(
@@ -134,7 +146,7 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                   child: RETextField(
                     controller: _controller.externalRotationNeutralController,
                     label:
-                    "External Rotation in Neutral (Degree/Range of Motion)",
+                        "External Rotation in Neutral (Degree/Range of Motion)",
                     validator: null,
                     prefixIcon: const Icon(
                       Icons.score,
@@ -144,10 +156,9 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                 ),
                 _paddingWrapper(
                   child: RETextField(
-                    controller:
-                    _controller.externalRotationAbductionController,
+                    controller: _controller.externalRotationAbductionController,
                     label:
-                    "External Rotation 90 Abduction (Degree/Range of Motion)",
+                        "External Rotation 90 Abduction (Degree/Range of Motion)",
                     validator: null,
                     prefixIcon: const Icon(
                       Icons.score,

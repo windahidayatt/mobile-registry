@@ -31,6 +31,7 @@ class PreOperativeResponseDTO {
   String? registrationNumber;
   String? type;
   String? step;
+  String? userId;
   String? registrationId;
   String? shoulderSpecialTestId;
   String? vasScore;
@@ -76,6 +77,7 @@ class PreOperativeResponseDTO {
         this.registrationNumber,
         this.type,
         this.step,
+        this.userId,
         this.registrationId,
         this.shoulderSpecialTestId,
         this.vasScore,
@@ -121,6 +123,7 @@ class PreOperativeResponseDTO {
     registrationNumber = json['registration_number'];
     type = json['type'];
     step = json['step'];
+    userId = json['user_id'];
     registrationId = json['registration_id'];
     shoulderSpecialTestId = json['shoulder_special_test_id'];
     vasScore = json['vas_score'];
@@ -168,6 +171,7 @@ class PreOperativeResponseDTO {
     data['registration_number'] = registrationNumber;
     data['type'] = type;
     data['step'] = step;
+    data['user_id'] = userId;
     data['registration_id'] = registrationId;
     data['shoulder_special_test_id'] = shoulderSpecialTestId;
     data['vas_score'] = vasScore;

@@ -94,4 +94,16 @@ class OperativeRepositoryImpl implements OperativeRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> deletePreOperative(String params) async {
+    try {
+      var result = await remoteDatasource.deletePreOperative(params);
+      return Right(result);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
+    }
+  }
 }
