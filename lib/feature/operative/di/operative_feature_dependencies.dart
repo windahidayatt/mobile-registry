@@ -1,5 +1,5 @@
-import 'package:mobile_registry/feature/operative/ui/intra_operative/controller/intra_operative_controller.dart';
-import 'package:mobile_registry/feature/operative/ui/post_operative/controller/post_operative_controller.dart';
+import 'package:mobile_registry/feature/operative/ui/intra_operative/dashboard/controller/intra_operative_controller.dart';
+import 'package:mobile_registry/feature/operative/ui/post_operative/dashboard/controller/post_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/pre_operative/add/controller/add_pre_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/pre_operative/dashboard/controller/pre_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/pre_operative/detail/controller/detail_pre_operative_controller.dart';
@@ -19,11 +19,13 @@ class OperativeFeatureDependencies {
     );
     sl.registerFactory<PostOperativeController>(
       () => PostOperativeController(
+        deletePostOperativeUseCase: sl(),
         getPostOperativesUseCase: sl(),
       ),
     );
     sl.registerFactory<IntraOperativeController>(
       () => IntraOperativeController(
+        deleteIntraOperativeUseCase: sl(),
         getIntraOperativesUseCase: sl(),
       ),
     );

@@ -28,6 +28,7 @@ class PostOperativeResponseDTO {
   String? registrationNumber;
   String? type;
   String? step;
+  String? userId;
   String? registrationId;
   String? shoulderSpecialTestId;
   String? followUp;
@@ -75,6 +76,7 @@ class PostOperativeResponseDTO {
         this.registrationNumber,
         this.type,
         this.step,
+        this.userId,
         this.registrationId,
         this.shoulderSpecialTestId,
         this.followUp,
@@ -122,6 +124,7 @@ class PostOperativeResponseDTO {
     registrationNumber = json['registration_number'];
     type = json['type'];
     step = json['step'];
+    userId = json['user_id'];
     registrationId = json['registration_id'];
     shoulderSpecialTestId = json['shoulder_special_test_id'];
     followUp = json['follow_up'];
@@ -171,6 +174,7 @@ class PostOperativeResponseDTO {
     data['registration_number'] = registrationNumber;
     data['type'] = type;
     data['step'] = step;
+    data['user_id'] = userId;
     data['registration_id'] = registrationId;
     data['shoulder_special_test_id'] = shoulderSpecialTestId;
     data['follow_up'] = followUp;

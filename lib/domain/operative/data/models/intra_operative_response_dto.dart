@@ -31,6 +31,7 @@ class IntraOperativeResponseDTO {
   String? registrationNumber;
   String? type;
   String? step;
+  String? userId;
   String? registrationId;
   String? painInterventionProcedureId;
   String? shoulderArthroscopyProcedureId;
@@ -72,6 +73,7 @@ class IntraOperativeResponseDTO {
         this.registrationNumber,
         this.type,
         this.step,
+        this.userId,
         this.registrationId,
         this.painInterventionProcedureId,
         this.shoulderArthroscopyProcedureId,
@@ -113,6 +115,7 @@ class IntraOperativeResponseDTO {
     registrationNumber = json['registration_number'];
     type = json['type'];
     step = json['step'];
+    userId = json['user_id'];
     registrationId = json['registration_id'];
     painInterventionProcedureId = json['pain_intervention_procedure_id'];
     shoulderArthroscopyProcedureId = json['shoulder_arthroscopy_procedure_id'];
@@ -158,6 +161,7 @@ class IntraOperativeResponseDTO {
     data['registration_number'] = registrationNumber;
     data['type'] = type;
     data['step'] = step;
+    data['user_id'] = userId;
     data['registration_id'] = registrationId;
     data['pain_intervention_procedure_id'] = painInterventionProcedureId;
     data['shoulder_arthroscopy_procedure_id'] =

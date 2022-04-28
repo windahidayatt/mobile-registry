@@ -30,6 +30,8 @@ class RERoute {
 
   // Operative.
   String get addPreOperative => '/operative/pre-operative/add';
+  String get addIntraOperative => '/operative/intra-operative/add';
+  String get addPostOperative => '/operative/post-operative/add';
 
   // Add Patient.
   String get addPatient => '/management/patient/add';

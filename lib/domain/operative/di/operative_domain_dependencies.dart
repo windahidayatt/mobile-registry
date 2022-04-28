@@ -3,6 +3,8 @@ import 'package:mobile_registry/domain/operative/data/datasources/operative_remo
 import 'package:mobile_registry/domain/operative/data/repositories/operative_repository_impl.dart';
 import 'package:mobile_registry/domain/operative/domain/repositories/operative_repository.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/add_pre_operative_usecase.dart';
+import 'package:mobile_registry/domain/operative/domain/usecases/delete_intra_operative_usecase.dart';
+import 'package:mobile_registry/domain/operative/domain/usecases/delete_post_operative_usecase.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/delete_pre_operative_usecase.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/get_intra_operatives_usecase.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/get_post_operatives_usecase.dart';
@@ -45,6 +47,16 @@ class OperativeDomainDependencies {
     );
     sl.registerLazySingleton<DeletePreOperativeUseCase>(
       () => DeletePreOperativeUseCase(
+        sl(),
+      ),
+    );
+    sl.registerLazySingleton<DeleteIntraOperativeUseCase>(
+      () => DeleteIntraOperativeUseCase(
+        sl(),
+      ),
+    );
+    sl.registerLazySingleton<DeletePostOperativeUseCase>(
+      () => DeletePostOperativeUseCase(
         sl(),
       ),
     );

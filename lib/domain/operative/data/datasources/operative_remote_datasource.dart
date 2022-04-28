@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
 import 'package:mobile_registry/domain/operative/data/models/intra_operative_response_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/post_operative_response_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/pre_operative_response_dto.dart';
@@ -153,6 +152,48 @@ class OperativeRemoteDatasource {
     Uri uri = Uri.http(
       Constants.reAPI.endpoint,
       Constants.reAPI.preOperatives + '/$id',
+    );
+    try {
+      final response = await httpHandler.delete(uri);
+      log('[REMOTE] : ${uri.toString()}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
+      }
+    } catch (error) {
+      log('[REMOTE ERROR] : ${error.toString()}');
+      rethrow;
+    }
+  }
+
+  Future<bool> deleteIntraOperative(String id) async {
+    Uri uri = Uri.http(
+      Constants.reAPI.endpoint,
+      Constants.reAPI.intraOperatives + '/$id',
+    );
+    try {
+      final response = await httpHandler.delete(uri);
+      log('[REMOTE] : ${uri.toString()}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
+      }
+    } catch (error) {
+      log('[REMOTE ERROR] : ${error.toString()}');
+      rethrow;
+    }
+  }
+
+  Future<bool> deletePostOperative(String id) async {
+    Uri uri = Uri.http(
+      Constants.reAPI.endpoint,
+      Constants.reAPI.postOperatives + '/$id',
     );
     try {
       final response = await httpHandler.delete(uri);
