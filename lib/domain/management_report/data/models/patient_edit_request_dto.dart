@@ -1,4 +1,4 @@
-class PatientAddRequestDTO {
+class PatientEditRequestDTO {
   String? domainCaseId;
   String? domainManagement;
   String? name;
@@ -12,7 +12,7 @@ class PatientAddRequestDTO {
   String? diagnosis;
   String? management;
 
-  PatientAddRequestDTO(
+  PatientEditRequestDTO(
       {this.domainCaseId,
         this.domainManagement,
         this.name,
@@ -26,7 +26,7 @@ class PatientAddRequestDTO {
         this.diagnosis,
         this.management});
 
-  PatientAddRequestDTO.fromJson(Map<String, dynamic> json) {
+  PatientEditRequestDTO.fromJson(Map<String, dynamic> json) {
     domainCaseId = json['domain_case_id'];
     domainManagement = json['domain_management'];
     name = json['name'];

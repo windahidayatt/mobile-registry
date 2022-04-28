@@ -24,8 +24,11 @@ class ManagementReportFeatureDependencies {
     );
     sl.registerFactory<AddPatientController>(
       () => AddPatientController(
+        getDetailPatientUseCase: sl(),
+        getHospitalsUseCase: sl(),
         getDomainCaseUseCase: sl(),
         addPatientUseCase: sl(),
+        editPatientUseCase: sl(),
       ),
     );
   }

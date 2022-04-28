@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/domain_case.dart';
+import 'package:mobile_registry/domain/management_report/domain/entities/hospital.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/patient.dart';
 import 'package:mobile_registry/domain/management_report/domain/usecases/add_patient_usecase.dart';
 import 'package:mobile_registry/domain/management_report/domain/usecases/edit_patient_usecase.dart';
@@ -13,4 +14,5 @@ abstract class ManagementReportRepository {
   Future<Either<Failure, bool>> editPatient(EditPatientParams params);
   Future<Either<Failure, bool>> deletePatient(String params);
   Future<Either<Failure, List<DomainCase>>> getDomainCase(NoParams params);
+  Future<Either<Failure, List<Hospital>>> getHospitals(NoParams params);
 }

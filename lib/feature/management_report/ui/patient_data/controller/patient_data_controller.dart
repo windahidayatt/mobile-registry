@@ -17,11 +17,11 @@ class PatientDataController extends GetxController {
   });
 
   final Rx<ViewState> viewState = ViewState.initial().obs;
-  void getPatientsData() {
-    _getPatientsData();
+  Future<void> getPatientsData() async {
+    await _getPatientsData();
   }
 
-  void _getPatientsData() async {
+  Future<void> _getPatientsData() async {
     viewState(ViewState.loading());
     Either<Failure, List<Patient>> result = await getPatientsUseCase.call(
       NoParams(),

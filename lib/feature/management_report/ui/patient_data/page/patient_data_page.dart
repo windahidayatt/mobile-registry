@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -43,11 +42,14 @@ class _PatientDataPageState extends State<PatientDataPage> {
               child: SELoadingPage(),
             );
           case Status.COMPLETED:
-            return ListView.builder(
-              itemCount: _controller.listPatient.length,
-              itemBuilder: (context, index) {
-                return _patientCard(_controller.listPatient[index]);
-              },
+            return RefreshIndicator(
+              child: ListView.builder(
+                itemCount: _controller.listPatient.length,
+                itemBuilder: (context, index) {
+                  return _patientCard(_controller.listPatient[index]);
+                },
+              ),
+              onRefresh: () => _controller.getPatientsData(),
             );
           case Status.ERROR:
             return Center(
@@ -62,7 +64,7 @@ class _PatientDataPageState extends State<PatientDataPage> {
       }),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => _navigateToAddPatient(),
+        onPressed: () => _navigateToAddPatient(null),
       ),
     );
   }
@@ -73,7 +75,10 @@ class _PatientDataPageState extends State<PatientDataPage> {
     );
   }
 
-  void _navigateToAddPatient() => Get.toNamed(Constants.reRoute.addPatient);
+  void _navigateToAddPatient(dynamic args) => Get.toNamed(
+        Constants.reRoute.addPatient,
+        arguments: args,
+      );
 
   Widget _patientCard(Patient patient) {
     return GestureDetector(
@@ -86,9 +91,9 @@ class _PatientDataPageState extends State<PatientDataPage> {
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (_) {
-                log('Do Edit');
-              },
+              onPressed: (_) => _navigateToAddPatient(
+                patient.id.toString(),
+              ),
               backgroundColor: ColorTone.reGreen,
               foregroundColor: Colors.white,
               icon: Icons.edit,

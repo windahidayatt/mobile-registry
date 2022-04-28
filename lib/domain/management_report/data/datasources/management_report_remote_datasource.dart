@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:mobile_registry/domain/management_report/data/models/domain_case_response_dto.dart';
+import 'package:mobile_registry/domain/management_report/data/models/hospitals_response_dto.dart';
 import 'package:mobile_registry/domain/management_report/data/models/patient_add_request_dto.dart';
+import 'package:mobile_registry/domain/management_report/data/models/patient_edit_request_dto.dart';
 import 'package:mobile_registry/domain/management_report/data/models/patient_response_dto.dart';
 import 'package:mobile_registry/shared_library/exception/api_exceptions.dart';
 import 'package:mobile_registry/shared_library/network/http_handler.dart';
@@ -104,6 +106,48 @@ class ManagementReportRemoteDatasource {
       log('[REMOTE] : ${uri.toString()}');
       if (response.statusCode == 200) {
         return true;
+      } else {
+        log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
+      }
+    } catch (error) {
+      log('[REMOTE ERROR] : ${error.toString()}');
+      rethrow;
+    }
+  }
+
+  Future<bool> editPatient(PatientEditRequestDTO dto, String id) async {
+    Uri uri = Uri.http(
+      Constants.reAPI.endpoint,
+      Constants.reAPI.patient + '/$id',
+    );
+    try {
+      final response = await httpHandler.put(
+        uri,
+        dto.toJson(),
+      );
+      log('[REMOTE] : ${uri.toString()}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
+      }
+    } catch (error) {
+      log('[REMOTE ERROR] : ${error.toString()}');
+      rethrow;
+    }
+  }
+
+  Future<List<HospitalsResponseDTO>> getHospitals() async {
+    Uri uri = Uri.http(Constants.reAPI.endpoint, Constants.reAPI.hospital);
+    try {
+      final response = await httpHandler.get(uri);
+      log('[REMOTE] : ${uri.toString()}');
+      if (response.statusCode == 200) {
+        return hospitalResponseListDtoFromJson(response.body);
       } else {
         log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
         throw APIException(

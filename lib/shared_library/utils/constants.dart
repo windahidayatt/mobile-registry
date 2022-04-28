@@ -17,6 +17,7 @@ class REApi {
   String get postOperatives => '/api/postoperative';
   String get prePatients => '/api/preoperative-patient-list';
   String get addPreOperative => '/api/preoperative';
+  String get hospital => '/api/hospital';
 }
 
 class RERoute {

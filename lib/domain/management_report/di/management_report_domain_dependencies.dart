@@ -7,6 +7,7 @@ import 'package:mobile_registry/domain/management_report/domain/usecases/delete_
 import 'package:mobile_registry/domain/management_report/domain/usecases/edit_patient_usecase.dart';
 import 'package:mobile_registry/domain/management_report/domain/usecases/get_detail_patient_usecase.dart';
 import 'package:mobile_registry/domain/management_report/domain/usecases/get_domain_case_usecase.dart';
+import 'package:mobile_registry/domain/management_report/domain/usecases/get_hospitals_usecase.dart';
 import 'package:mobile_registry/domain/management_report/domain/usecases/get_patients_usecase.dart';
 import 'package:mobile_registry/shared_library/service_locator/service_locator.dart';
 
@@ -50,6 +51,12 @@ class ManagementReportDomainDependencies {
 
     sl.registerLazySingleton<GetDomainCaseUseCase>(
       () => GetDomainCaseUseCase(
+        sl(),
+      ),
+    );
+
+    sl.registerLazySingleton<GetHospitalsUseCase>(
+      () => GetHospitalsUseCase(
         sl(),
       ),
     );

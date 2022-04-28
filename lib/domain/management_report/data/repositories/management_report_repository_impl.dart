@@ -2,7 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:mobile_registry/domain/management_report/data/datasources/management_report_local_datasource.dart';
 import 'package:mobile_registry/domain/management_report/data/datasources/management_report_remote_datasource.dart';
 import 'package:mobile_registry/domain/management_report/data/models/patient_add_request_dto.dart';
+import 'package:mobile_registry/domain/management_report/data/models/patient_edit_request_dto.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/domain_case.dart';
+import 'package:mobile_registry/domain/management_report/domain/entities/hospital.dart';
 import 'package:mobile_registry/domain/management_report/domain/entities/patient.dart';
 import 'package:mobile_registry/domain/management_report/domain/repositories/management_report_repository.dart';
 import 'package:mobile_registry/domain/management_report/domain/usecases/add_patient_usecase.dart';
@@ -34,9 +36,14 @@ class ManagementReportRepositoryImpl implements ManagementReportRepository {
   }
 
   @override
-  Future<Either<Failure, Patient>> getDetailPatient(String params) {
-    // TODO: implement getDetailPatient
-    throw UnimplementedError();
+  Future<Either<Failure, Patient>> getDetailPatient(String params) async {
+    try {
+      var result = await remoteDatasource.getPatient(params);
+      Patient patients = Patient.fromDTO(result);
+      return Right(patients);
+    } on APIException catch (error) {
+      return Left(APIFailure(message: error.message));
+    }
   }
 
   @override
@@ -52,9 +59,29 @@ class ManagementReportRepositoryImpl implements ManagementReportRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> editPatient(EditPatientParams params) {
-    // TODO: implement editPatient
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> editPatient(EditPatientParams params) async {
+    try {
+      var result = await remoteDatasource.editPatient(
+          PatientEditRequestDTO(
+              domainCaseId: params.domainCaseId,
+              domainManagement: params.domainManagement,
+              name: params.name,
+              age: params.age,
+              gender: params.gender,
+              weight: params.weight,
+              height: params.height,
+              hospitalId: params.hospitalId,
+              medicalRecord: params.medicalRecord,
+              phoneNumber: params.phoneNumber,
+              diagnosis: params.diagnosis,
+              management: params.management),
+          params.id ?? '');
+      return Right(result);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
+    }
   }
 
   @override
@@ -62,14 +89,14 @@ class ManagementReportRepositoryImpl implements ManagementReportRepository {
     try {
       var result = await remoteDatasource.addPatient(
         PatientAddRequestDTO(
-            domainCase: params.domainCase,
+            domainCaseId: params.domainCaseId,
             domainManagement: params.domainManagement,
             name: params.name,
             age: params.age,
             gender: params.gender,
             weight: params.weight,
             height: params.height,
-            hospital: params.hospital,
+            hospitalId: params.hospitalId,
             medicalRecord: params.medicalRecord,
             phoneNumber: params.phoneNumber,
             diagnosis: params.diagnosis,
@@ -91,6 +118,23 @@ class ManagementReportRepositoryImpl implements ManagementReportRepository {
       List<DomainCase> patients = List<DomainCase>.from(
         result.map(
           (x) => DomainCase.fromDTO(x),
+        ),
+      );
+      return Right(patients);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Hospital>>> getHospitals(NoParams params) async {
+    try {
+      var result = await remoteDatasource.getHospitals();
+      List<Hospital> patients = List<Hospital>.from(
+        result.map(
+          (x) => Hospital.fromDTO(x),
         ),
       );
       return Right(patients);

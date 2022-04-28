@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:mobile_registry/feature/management_report/ui/add_patient/controller/add_patient_controller.dart';
 import 'package:mobile_registry/shared_library/components/button/re_button.dart';
@@ -21,9 +23,17 @@ class AddPatientPage extends StatefulWidget {
 class _AddPatientPageState extends State<AddPatientPage> {
   final AddPatientController _controller = sl();
 
+  void _getDataRequired() {
+    _controller.getDomainCase();
+    _controller.getHospitals();
+    if (Get.arguments != null) {
+      _controller.getDetailPatient(Get.arguments);
+    }
+  }
+
   @override
   void initState() {
-    _controller.getDomainCase();
+    _getDataRequired();
     super.initState();
   }
 
@@ -32,7 +42,7 @@ class _AddPatientPageState extends State<AddPatientPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorTone.reDarkGrey,
-        title: const Text('Add Patient'),
+        title: Text((Get.arguments != null) ? 'Edit Patient' : 'Add Patient'),
         centerTitle: true,
       ),
       body: Obx(() {
@@ -46,253 +56,256 @@ class _AddPatientPageState extends State<AddPatientPage> {
               child: SELoadingPage(),
             );
           case Status.COMPLETED:
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  _paddingWrapper(
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      hint: const Text("Domain Case"),
-                      value: _controller.domainCase,
-                      items: _controller.listDomainCase.map((value) {
-                        return DropdownMenuItem(
-                          child: Text(value.name),
-                          value: value.name,
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        _controller.domainCase = value ?? '';
-                      },
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelText: "Domain Case",
-                        prefixIcon: const Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
+            return ListView(
+              children: [
+                _paddingWrapper(
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    hint: const Text("Domain Case"),
+                    value: _controller.domainCase,
+                    items: _controller.listDomainCase.map((value) {
+                      return DropdownMenuItem(
+                        child: Text(value.name),
+                        value: value.id.toString(),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      _controller.domainCase = value ?? '';
+                    },
+                    decoration: InputDecoration(
+                      isDense: true,
+                      labelText: "Domain Case",
+                      prefixIcon: const Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                     ),
                   ),
-                  _paddingWrapper(
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      hint: const Text("Domain Management"),
-                      value: _controller.domainManagement,
-                      items: _controller.listDomainManagement.map((value) {
-                        return DropdownMenuItem(
-                          child: Text(value),
-                          value: value,
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        _controller.domainManagement = value ?? '';
-                      },
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelText: "Domain Management",
-                        prefixIcon: const Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
+                ),
+                _paddingWrapper(
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    hint: const Text("Domain Management"),
+                    value: _controller.domainManagement,
+                    items: _controller.listDomainManagement.map((value) {
+                      return DropdownMenuItem(
+                        child: Text(value),
+                        value: value,
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      _controller.domainManagement = value ?? '';
+                    },
+                    decoration: InputDecoration(
+                      isDense: true,
+                      labelText: "Domain Management",
+                      prefixIcon: const Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                     ),
                   ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.nameText,
-                      label: "Name",
-                      validator: null,
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.nameText,
+                    label: "Name",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
+                    ),
+                  ),
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.ageText,
+                    label: "Age",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
+                    ),
+                  ),
+                ),
+                _paddingWrapper(
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    hint: const Text("Gender"),
+                    value: _controller.gender,
+                    items: _controller.listGender.map((value) {
+                      return DropdownMenuItem(
+                        child: Text(value),
+                        value: value,
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      _controller.gender = value ?? '';
+                    },
+                    decoration: InputDecoration(
+                      isDense: true,
+                      labelText: "Gender",
                       prefixIcon: const Icon(
                         Icons.person,
                         color: ColorTone.reDarkGrey,
                       ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
                     ),
                   ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.ageText,
-                      label: "Age",
-                      validator: null,
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.weightText,
+                    label: "Weight (kg)",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
+                    ),
+                  ),
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.heightText,
+                    label: "Height (cm)",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
+                    ),
+                  ),
+                ),
+                _paddingWrapper(
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    hint: const Text("Hospital"),
+                    value: _controller.hospital,
+                    items: _controller.listHospital.map((value) {
+                      return DropdownMenuItem(
+                        child: Text(value.name ?? '-'),
+                        value: value.id.toString(),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      _controller.hospital = value ?? '';
+                    },
+                    decoration: InputDecoration(
+                      isDense: true,
+                      labelText: "Hospital",
                       prefixIcon: const Icon(
                         Icons.person,
                         color: ColorTone.reDarkGrey,
                       ),
-                    ),
-                  ),
-                  _paddingWrapper(
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      hint: const Text("Gender"),
-                      value: _controller.gender,
-                      items: _controller.listGender.map((value) {
-                        return DropdownMenuItem(
-                          child: Text(value),
-                          value: value,
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        _controller.gender = value ?? '';
-                      },
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelText: "Gender",
-                        prefixIcon: const Icon(
-                          Icons.person,
-                          color: ColorTone.reDarkGrey,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide:
+                            const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                     ),
                   ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.weightText,
-                      label: "Weight (kg)",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
-                      ),
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.medicalRecordText,
+                    label: "Medical Record",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
                     ),
                   ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.heightText,
-                      label: "Height (cm)",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
-                      ),
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.phoneText,
+                    label: "Phone Number",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
                     ),
                   ),
-                  _paddingWrapper(
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      hint: const Text("Hospital"),
-                      value: _controller.hospital,
-                      items: _controller.listHospital.map((value) {
-                        return DropdownMenuItem(
-                          child: Text(value),
-                          value: value,
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        _controller.hospital = value ?? '';
-                      },
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelText: "Hospital",
-                        prefixIcon: const Icon(
-                          Icons.person,
-                          color: ColorTone.reDarkGrey,
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.diagnosticText,
+                    label: "Diagnosis",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
+                    ),
+                  ),
+                ),
+                _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.managementText,
+                    label: "Management",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: Row(
+                    children: [
+                      const Spacer(
+                        flex: 1,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: REButton(
+                          label: 'Add',
+                          onTap: () => {
+                            if (Get.arguments != null)
+                              {_controller.editPatient(Get.arguments)}
+                            else
+                              {_controller.addPatient()}
+                          },
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          borderSide:
-                              const BorderSide(color: ColorTone.reDarkGrey),
-                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.medicalRecordText,
-                      label: "Medical Record",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
-                      ),
-                    ),
-                  ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.phoneText,
-                      label: "Phone Number",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
-                      ),
-                    ),
-                  ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.diagnosticText,
-                      label: "Diagnosis",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
-                      ),
-                    ),
-                  ),
-                  _paddingWrapper(
-                    child: RETextField(
-                      controller: _controller.managementText,
-                      label: "Management",
-                      validator: null,
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: ColorTone.reDarkGrey,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Row(
-                      children: [
-                        const Spacer(
-                          flex: 1,
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: REButton(
-                            label: 'Add',
-                            onTap: () => _controller.addPatient(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             );
           case Status.ERROR:
             return Center(
               child: SEErrorPage(
                 message: _controller.viewState.value.message,
                 onRefresh: () {
-                  _controller.getDomainCase();
+                  _getDataRequired();
                 },
               ),
             );

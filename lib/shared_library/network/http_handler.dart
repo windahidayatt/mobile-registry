@@ -29,9 +29,16 @@ class HttpHandler {
     );
   }
 
-  Future<http.Response> put(Uri url) {
+  Future<http.Response> put(
+    Uri url,
+    Object body,
+  ) {
     Map<String, String> httpHeaders = _setHeader();
-    return http.put(url, headers: httpHeaders);
+    return http.put(
+      url,
+      headers: httpHeaders,
+      body: jsonEncode(body),
+    );
   }
 
   Future<http.Response> delete(Uri url) {

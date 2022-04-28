@@ -15,7 +15,35 @@ class EditPatientUseCase extends UseCase<bool, EditPatientParams> {
 }
 
 class EditPatientParams extends Equatable {
-  const EditPatientParams();
+  final String? id;
+  final String? domainCaseId;
+  final String? domainManagement;
+  final String? name;
+  final String? age;
+  final String? gender;
+  final String? weight;
+  final String? height;
+  final String? hospitalId;
+  final String? medicalRecord;
+  final String? phoneNumber;
+  final String? diagnosis;
+  final String? management;
+
+  const EditPatientParams(
+      {this.id,
+      this.domainCaseId,
+      this.domainManagement,
+      this.name,
+      this.age,
+      this.gender,
+      this.weight,
+      this.height,
+      this.hospitalId,
+      this.medicalRecord,
+      this.phoneNumber,
+      this.diagnosis,
+      this.management});
+
   @override
   List<Object> get props => [];
 }
