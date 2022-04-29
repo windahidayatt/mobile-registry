@@ -17,11 +17,12 @@ class HttpHandler {
     return http.get(url, headers: httpHeaders);
   }
 
-  Future<http.Response> post(
-    Uri url,
-    Object body,
-  ) {
+  Future<http.Response> post(Uri url, Object body,
+      {Map<String, String>? modifyHeader}) {
     Map<String, String> httpHeaders = _setHeader();
+    if (modifyHeader != null) {
+      httpHeaders.addAll(modifyHeader);
+    }
     return http.post(
       url,
       headers: httpHeaders,

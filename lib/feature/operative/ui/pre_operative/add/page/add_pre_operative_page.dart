@@ -55,19 +55,18 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                 _paddingWrapper(
                   child: DropdownButtonFormField<String>(
                     isExpanded: true,
-                    hint: const Text("Patient Identity"),
-                    items: _controller.listPatients.map((value) {
+                    hint: const Text("Operative Type"),
+                    items: _controller.listTypes.map((value) {
                       return DropdownMenuItem(
-                        child: Text(value.patientInfo),
-                        value: value.patientInfo,
+                        child: Text(value),
+                        value: value,
                       );
                     }).toList(),
-                    onChanged: (value) {
-                      _controller.patientIdentity = value ?? '';
-                    },
+                    onChanged: (value) =>
+                        {_controller.operativeType(value ?? '')},
                     decoration: InputDecoration(
                       isDense: true,
-                      prefixIcon: const Icon(Icons.person),
+                      prefixIcon: const Icon(Icons.health_and_safety),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                         borderSide:
@@ -84,27 +83,28 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                 _paddingWrapper(
                   child: DropdownButtonFormField<String>(
                     isExpanded: true,
-                    hint: const Text("Operative Type"),
-                    items: _controller.listTypes.map((value) {
+                    hint: const Text("Patient Identity"),
+                    items: _controller.listPatients.map((value) {
                       return DropdownMenuItem(
-                        child: Text(value),
-                        value: value,
+                        child: Text(value.patientInfo),
+                        value: value.patientInfo,
                       );
                     }).toList(),
-                    onChanged: (value) =>
-                        {_controller.operativeType = value ?? ''},
+                    onChanged: (value) {
+                      _controller.patientIdentity(value ?? '');
+                    },
                     decoration: InputDecoration(
                       isDense: true,
-                      prefixIcon: const Icon(Icons.health_and_safety),
+                      prefixIcon: const Icon(Icons.person),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                         borderSide:
-                            const BorderSide(color: ColorTone.reDarkGrey),
+                        const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                         borderSide:
-                            const BorderSide(color: ColorTone.reDarkGrey),
+                        const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                     ),
                   ),
@@ -199,6 +199,7 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                     ),
                   ),
                 ),
+                _shoulderSpecialForm(),
                 _paddingWrapper(
                   child: const REFileField(
                     label: 'ASES Score',
@@ -240,27 +241,33 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                   ),
                 ),
                 _paddingWrapper(
-                  child: const RESwitch(
-                    value: false,
+                  child: RESwitch(
+                    value: _controller.isSupportingInvestigation.value,
                     label: 'Supporting Investigation',
+                    onChanged: (value) =>
+                        _controller.isSupportingInvestigation(value),
                   ),
                 ),
                 _paddingWrapper(
-                  child: const RESwitch(
-                    value: false,
+                  child: RESwitch(
+                    value: _controller.billingByBPJS.value,
                     label: 'BPJS Billing',
+                    onChanged: (value) => _controller.billingByBPJS(value),
                   ),
                 ),
+                _progressBilling(),
                 _paddingWrapper(
-                  child: const RESwitch(
-                    value: false,
+                  child: RESwitch(
+                    value: _controller.anesthesia.value,
                     label: 'Anesthesia',
+                    onChanged: (value) => _controller.anesthesia(value),
                   ),
                 ),
                 _paddingWrapper(
-                  child: const RESwitch(
-                    value: false,
+                  child: RESwitch(
+                    value: _controller.complete.value,
                     label: 'Complete',
+                    onChanged: (value) => _controller.complete(value),
                   ),
                 ),
                 Container(
@@ -302,4 +309,145 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
       child: child,
     );
   }
+
+  Widget _progressBilling() => (!_controller.billingByBPJS.value)
+      ? _paddingWrapper(
+          child: RETextField(
+            controller: _controller.progressBillingController,
+            label: "Other Billing",
+            validator: null,
+            prefixIcon: const Icon(
+              Icons.score,
+              color: ColorTone.reDarkGrey,
+            ),
+          ),
+        )
+      : const SizedBox.shrink();
+
+  Widget _shoulderSpecialForm() => (_controller.operativeType.value ==
+          'Shoulder')
+      ? Column(
+          children: [
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.shoulderNeer.value,
+                label: 'Shoulder Neer Test',
+                onChanged: (value) => _controller.shoulderNeer(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.shoulderJobe.value,
+                label: 'Shoulder Jobe Test',
+                onChanged: (value) => _controller.shoulderJobe(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.shoulderHawkins.value,
+                label: 'Shoulder Hawkins Test',
+                onChanged: (value) => _controller.shoulderHawkins(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.externalRotationLag.value,
+                label: 'External Rotation Lag Test',
+                onChanged: (value) => _controller.externalRotationLag(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.hornblower.value,
+                label: 'Hornblower Test',
+                onChanged: (value) => _controller.hornblower(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.bellyPress.value,
+                label: 'Belly Press Test',
+                onChanged: (value) => _controller.bellyPress(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.bellyOff.value,
+                label: 'Belly Off Test',
+                onChanged: (value) => _controller.bellyOff(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.liftOff.value,
+                label: 'Lift Off Test',
+                onChanged: (value) => _controller.liftOff(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.bearHug.value,
+                label: 'Bear Hug Test',
+                onChanged: (value) => _controller.bearHug(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.obrient.value,
+                label: "O'Brient Test",
+                onChanged: (value) => _controller.obrient(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.throwing.value,
+                label: 'Throwing Test',
+                onChanged: (value) => _controller.throwing(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.speed.value,
+                label: 'Speed Test',
+                onChanged: (value) => _controller.speed(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.anteriorApprehension.value,
+                label: 'Anterior Apprehension Test',
+                onChanged: (value) => _controller.anteriorApprehension(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.posteriorApprehension.value,
+                label: 'Posterior Apprehension Test',
+                onChanged: (value) => _controller.posteriorApprehension(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.loadShift.value,
+                label: 'Load Shift Test',
+                onChanged: (value) => _controller.loadShift(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.sulcusSign.value,
+                label: 'Sulcus Sign',
+                onChanged: (value) => _controller.sulcusSign(value),
+              ),
+            ),
+            _paddingWrapper(
+              child: RESwitch(
+                value: _controller.posteriorJerk.value,
+                label: 'Posterior Jerk Test',
+                onChanged: (value) => _controller.posteriorJerk(value),
+              ),
+            ),
+          ],
+        )
+      : const SizedBox.shrink();
 }

@@ -25,7 +25,6 @@ class IntraOperative extends Equatable {
   final String? userId;
   final String? registrationId;
   final String? painInterventionProcedureId;
-
   final String? shoulderArthroscopyProcedureId;
   final String? shoulderArthroplastyProcedureId;
   final String? openReductionAndTraumaProcedureId;
@@ -34,7 +33,6 @@ class IntraOperative extends Equatable {
   final String? humeralHeadSize;
   final String? humeralStemSize;
   final String? glenosphereSize;
-
   final String? actionPlan;
   final String? plannedDate;
   final String? progressSupportInvestigation;

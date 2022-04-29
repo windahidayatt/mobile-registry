@@ -1,11 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_registry/domain/operative/data/datasources/operative_local_datasource.dart';
 import 'package:mobile_registry/domain/operative/data/datasources/operative_remote_datasource.dart';
+import 'package:mobile_registry/domain/operative/data/models/pre_operative_add_request_dto.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/intra_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/post_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/pre_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/pre_patients.dart';
 import 'package:mobile_registry/domain/operative/domain/repositories/operative_repository.dart';
+import 'package:mobile_registry/domain/operative/domain/usecases/add_pre_operative_usecase.dart';
 import 'package:mobile_registry/shared_library/exception/api_exceptions.dart';
 import 'package:mobile_registry/shared_library/failure/failure.dart';
 import 'package:mobile_registry/shared_library/use_case/use_case.dart';
@@ -84,9 +86,52 @@ class OperativeRepositoryImpl implements OperativeRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> addPreOperative(NoParams params) async {
+  Future<Either<Failure, bool>> addPreOperative(
+      AddPreOperativeParams params) async {
     try {
-      var result = await remoteDatasource.addPreOperative();
+      var result = await remoteDatasource.addPreOperative(
+        PreOperativeAddRequestDTO(
+          patient: params.patient,
+          type: params.type,
+          vasScore: params.vasScore,
+          forwardFlexion: params.forwardFlexion,
+          abductionDegree: params.abductionDegree,
+          externalRotationNeutral: params.externalRotationNeutral,
+          externalRotation90Abduction: params.externalRotation90Abduction,
+          internalRotation: params.internalRotation,
+          asesScore: params.asesScore,
+          dashScore: params.dashScore,
+          actionPlan: params.actionPlan,
+          plannedDate: params.plannedDate,
+          progessSupportInvestigation: params.progessSupportInvestigation,
+          progessBpjsBilling: params.progessBpjsBilling,
+          progressBilling: params.progressBilling,
+          progessAnesthesia: params.progessAnesthesia,
+          progessComplete: params.progessComplete,
+          shoulderSpecialTestForm: params.shoulderSpecialTestForm,
+          shoulerNeer: params.shoulerNeer,
+          shoulerJobe: params.shoulerJobe,
+          shoulerHawkins: params.shoulerHawkins,
+          extRotationLag: params.extRotationLag,
+          hornblower: params.hornblower,
+          bellyPress: params.bellyPress,
+          bellyOff: params.bellyOff,
+          liftOff: params.liftOff,
+          bearHug: params.bearHug,
+          obrient: params.obrient,
+          throwing: params.throwing,
+          speed: params.speed,
+          anteriorApprehension: params.anteriorApprehension,
+          posteriorApprehension: params.posteriorApprehension,
+          loadShift: params.loadShift,
+          sulcusSign: params.sulcusSign,
+          posteriorJerk: params.posteriorJerk,
+          asesScoreFile: params.asesScoreFile,
+          xRayFile: params.xRayFile,
+          ctScanFile: params.ctScanFile,
+          mriFile: params.mriFile,
+        ),
+      );
       return Right(result);
     } on APIException catch (error) {
       return Left(

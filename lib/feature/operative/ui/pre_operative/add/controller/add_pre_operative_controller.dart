@@ -10,15 +10,20 @@ import 'package:mobile_registry/shared_library/lifecycle/view_state.dart';
 import 'package:mobile_registry/shared_library/use_case/use_case.dart';
 
 class AddPreOperativeController extends GetxController {
-  AddPreOperativeController(
-      {required this.getPrePatientsUseCase,
-      required this.addPreOperativeUseCase});
+  AddPreOperativeController({
+    required this.getPrePatientsUseCase,
+    required this.addPreOperativeUseCase,
+  });
   final GetPrePatientsUseCase getPrePatientsUseCase;
   final AddPreOperativeUseCase addPreOperativeUseCase;
-  final List<PrePatients> listPatients = [];
-  final List<String> listTypes = ['Shoulder', 'Elbow'];
+
   final Rx<ViewState> viewState = ViewState.initial().obs;
 
+  // Options value in Dropdown
+  final List<PrePatients> listPatients = [];
+  final List<String> listTypes = ['Shoulder', 'Elbow'];
+
+  // Text Controller
   TextEditingController patientController = TextEditingController();
   TextEditingController forwardFlexionController = TextEditingController();
   TextEditingController abductionController = TextEditingController();
@@ -32,10 +37,39 @@ class AddPreOperativeController extends GetxController {
   TextEditingController actionPlanController = TextEditingController();
   TextEditingController plannedDateController = TextEditingController();
   TextEditingController vasScoreController = TextEditingController();
-  String patientIdentity = '';
-  String operativeType = '';
+  TextEditingController progressBillingController = TextEditingController();
+
+  // Dropdown
+  Rx<String> patientIdentity = ''.obs;
+  Rx<String> operativeType = ''.obs;
   Rx<String> plannedDate = ''.obs;
-  late Rx<bool> isSupportingInvestigation, billingByBPJS, anesthesia, complete;
+
+  // Main Switch
+  final Rx<bool> isSupportingInvestigation = false.obs;
+  final Rx<bool> billingByBPJS = false.obs;
+  final Rx<bool> anesthesia = false.obs;
+  final Rx<bool> complete = false.obs;
+
+  // Optional Switch for Shoulder
+  final Rx<bool> shoulderNeer = false.obs;
+  final Rx<bool> shoulderJobe = false.obs;
+  final Rx<bool> shoulderHawkins = false.obs;
+  final Rx<bool> externalRotationLag = false.obs;
+  final Rx<bool> hornblower = false.obs;
+  final Rx<bool> bellyPress = false.obs;
+  final Rx<bool> bellyOff = false.obs;
+  final Rx<bool> liftOff = false.obs;
+  final Rx<bool> bearHug = false.obs;
+  final Rx<bool> obrient = false.obs;
+  final Rx<bool> throwing = false.obs;
+  final Rx<bool> speed = false.obs;
+  final Rx<bool> anteriorApprehension = false.obs;
+  final Rx<bool> posteriorApprehension = false.obs;
+  final Rx<bool> loadShift = false.obs;
+  final Rx<bool> sulcusSign = false.obs;
+  final Rx<bool> posteriorJerk = false.obs;
+
+  // Documents
   late Rx<File> americanShoulderScore, xRay, ctScan, mri;
 
   void getPrePatients() {
@@ -49,23 +83,81 @@ class AddPreOperativeController extends GetxController {
       NoParams(),
     );
     result.fold((l) {
-      viewState(ViewState.error(l.message.toString()));
+      viewState(
+        ViewState.error(
+          l.message.toString(),
+        ),
+      );
     }, (r) {
-      viewState(ViewState.completed(r));
+      viewState(
+        ViewState.completed(r),
+      );
       listPatients.clear();
       listPatients.addAll(r);
     });
   }
 
+  String _getBooleanStringify(bool isTrue) => (isTrue == true) ? "1" : "0";
+
   void addPreOperative() async {
-    Either<Failure, bool> result =
-        await addPreOperativeUseCase.call(
-      NoParams(),
+    viewState(ViewState.loading());
+    Either<Failure, bool> result = await addPreOperativeUseCase.call(
+      AddPreOperativeParams(
+        patient: patientIdentity.value,
+        type: operativeType.value,
+        vasScore: vasScoreController.text,
+        forwardFlexion: forwardFlexionController.text,
+        abductionDegree: abductionController.text,
+        externalRotationNeutral: externalRotationNeutralController.text,
+        externalRotation90Abduction: externalRotationAbductionController.text,
+        internalRotation: internalRotationController.text,
+        asesScore: americanScoreController.text,
+        dashScore: dashScoreController.text,
+        actionPlan: actionPlanController.text,
+        plannedDate: plannedDate.toString(),
+        progessSupportInvestigation:
+            _getBooleanStringify(isSupportingInvestigation.value),
+        progessBpjsBilling: _getBooleanStringify(billingByBPJS.value),
+        progressBilling: progressBillingController.text,
+        progessAnesthesia: _getBooleanStringify(anesthesia.value),
+        progessComplete: _getBooleanStringify(complete.value),
+        shoulderSpecialTestForm:
+            (operativeType.value == 'Shoulder') ? "1" : "0",
+        shoulerNeer: _getBooleanStringify(shoulderNeer.value),
+        shoulerJobe: _getBooleanStringify(shoulderJobe.value),
+        shoulerHawkins: _getBooleanStringify(shoulderHawkins.value),
+        extRotationLag: _getBooleanStringify(externalRotationLag.value),
+        hornblower: _getBooleanStringify(hornblower.value),
+        bellyPress: _getBooleanStringify(bellyPress.value),
+        bellyOff: _getBooleanStringify(bellyOff.value),
+        liftOff: _getBooleanStringify(liftOff.value),
+        bearHug: _getBooleanStringify(bearHug.value),
+        obrient: _getBooleanStringify(obrient.value),
+        throwing: _getBooleanStringify(throwing.value),
+        speed: _getBooleanStringify(speed.value),
+        anteriorApprehension: _getBooleanStringify(anteriorApprehension.value),
+        posteriorApprehension:
+            _getBooleanStringify(posteriorApprehension.value),
+        loadShift: _getBooleanStringify(loadShift.value),
+        sulcusSign: _getBooleanStringify(sulcusSign.value),
+        posteriorJerk: _getBooleanStringify(posteriorJerk.value),
+        asesScoreFile: null,
+        xRayFile: null,
+        ctScanFile: null,
+        mriFile: null,
+      ),
     );
     result.fold((l) {
-      print(l.message.toString());
+      viewState(
+        ViewState.error(
+          l.message.toString(),
+        ),
+      );
     }, (r) {
-      print(r.toString());
+      viewState(
+        ViewState.completed(r),
+      );
+      getPrePatients();
     });
   }
 }
