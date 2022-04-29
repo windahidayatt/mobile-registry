@@ -7,9 +7,11 @@ class REFileField extends StatelessWidget {
     Key? key,
     required this.label,
     required this.fileName,
+    this.onTap,
   }) : super(key: key);
   final String label;
   final String fileName;
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +39,7 @@ class REFileField extends StatelessWidget {
           ),
           REButton(
             label: 'Choose File',
-            onTap: () => null,
+            onTap: onTap,
           )
         ],
       ),

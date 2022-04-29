@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_registry/feature/operative/ui/pre_operative/add/controller/add_pre_operative_controller.dart';
@@ -99,12 +100,12 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                         borderSide:
-                        const BorderSide(color: ColorTone.reDarkGrey),
+                            const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                         borderSide:
-                        const BorderSide(color: ColorTone.reDarkGrey),
+                            const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                     ),
                   ),
@@ -201,27 +202,41 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                 ),
                 _shoulderSpecialForm(),
                 _paddingWrapper(
-                  child: const REFileField(
+                  child: REFileField(
                     label: 'ASES Score',
-                    fileName: 'File.pdf',
+                    fileName: _controller.americanShoulderScore.value?.name ??
+                        'Empty',
+                    onTap: () async {
+                      _controller.americanShoulderScore.value =
+                          await getAttachmentImage();
+                    },
                   ),
                 ),
                 _paddingWrapper(
-                  child: const REFileField(
+                  child: REFileField(
                     label: 'X-Ray Investigation',
-                    fileName: 'File.pdf',
+                    fileName: _controller.xRay.value?.name ?? 'Empty',
+                    onTap: () async {
+                      _controller.xRay.value = await getAttachmentImage();
+                    },
                   ),
                 ),
                 _paddingWrapper(
-                  child: const REFileField(
+                  child: REFileField(
                     label: 'CT-Scan Investigation',
-                    fileName: 'File.pdf',
+                    fileName: _controller.ctScan.value?.name ?? 'Empty',
+                    onTap: () async {
+                      _controller.ctScan.value = await getAttachmentImage();
+                    },
                   ),
                 ),
                 _paddingWrapper(
-                  child: const REFileField(
+                  child: REFileField(
                     label: 'MRI Investigation',
-                    fileName: 'File.pdf',
+                    fileName: _controller.mri.value?.name ?? 'Empty',
+                    onTap: () async {
+                      _controller.mri.value = await getAttachmentImage();
+                    },
                   ),
                 ),
                 _paddingWrapper(
@@ -450,4 +465,13 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
           ],
         )
       : const SizedBox.shrink();
+
+  Future<PlatformFile?> getAttachmentImage() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+    );
+    return result?.files[0];
+  }
 }

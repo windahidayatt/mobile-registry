@@ -199,6 +199,17 @@ class _AddPatientPageState extends State<AddPatientPage> {
                   ),
                 ),
                 _paddingWrapper(
+                  child: RETextField(
+                    controller: _controller.medicalRecordText,
+                    label: "Medical Record",
+                    validator: null,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: ColorTone.reDarkGrey,
+                    ),
+                  ),
+                ),
+                _paddingWrapper(
                   child: DropdownButtonFormField<String>(
                     isExpanded: true,
                     hint: const Text("Hospital"),
@@ -222,24 +233,13 @@ class _AddPatientPageState extends State<AddPatientPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                         borderSide:
-                            const BorderSide(color: ColorTone.reDarkGrey),
+                        const BorderSide(color: ColorTone.reDarkGrey),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                         borderSide:
-                            const BorderSide(color: ColorTone.reDarkGrey),
+                        const BorderSide(color: ColorTone.reDarkGrey),
                       ),
-                    ),
-                  ),
-                ),
-                _paddingWrapper(
-                  child: RETextField(
-                    controller: _controller.medicalRecordText,
-                    label: "Medical Record",
-                    validator: null,
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: ColorTone.reDarkGrey,
                     ),
                   ),
                 ),

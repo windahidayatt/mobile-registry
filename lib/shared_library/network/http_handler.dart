@@ -51,7 +51,7 @@ class HttpHandler {
     String? token = sharedPreferences.getString(Constants.reCached.token);
     return {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Accept': '*/*',
       'Authorization': 'Bearer ' + (token ?? ""),
     };
   }

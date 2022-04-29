@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'package:dartz/dartz.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/pre_patients.dart';
@@ -70,7 +70,10 @@ class AddPreOperativeController extends GetxController {
   final Rx<bool> posteriorJerk = false.obs;
 
   // Documents
-  late Rx<File> americanShoulderScore, xRay, ctScan, mri;
+  final Rxn<PlatformFile> americanShoulderScore = Rxn<PlatformFile>();
+  final Rxn<PlatformFile> xRay = Rxn<PlatformFile>();
+  final Rxn<PlatformFile> ctScan = Rxn<PlatformFile>();
+  final Rxn<PlatformFile> mri = Rxn<PlatformFile>();
 
   void getPrePatients() {
     _getPrePatients();
@@ -141,10 +144,10 @@ class AddPreOperativeController extends GetxController {
         loadShift: _getBooleanStringify(loadShift.value),
         sulcusSign: _getBooleanStringify(sulcusSign.value),
         posteriorJerk: _getBooleanStringify(posteriorJerk.value),
-        asesScoreFile: null,
-        xRayFile: null,
-        ctScanFile: null,
-        mriFile: null,
+        asesScoreFile: americanShoulderScore.value?.path,
+        xRayFile: xRay.value?.path,
+        ctScanFile: ctScan.value?.path,
+        mriFile: mri.value?.path,
       ),
     );
     result.fold((l) {
