@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:mobile_registry/domain/operative/data/models/intra_operative_response_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/post_operative_response_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/pre_operative_add_request_dto.dart';
@@ -8,6 +9,7 @@ import 'package:mobile_registry/domain/operative/data/models/pre_patients_respon
 import 'package:mobile_registry/shared_library/exception/api_exceptions.dart';
 import 'package:mobile_registry/shared_library/network/http_handler.dart';
 import 'package:mobile_registry/shared_library/utils/constants.dart';
+import 'package:http/http.dart' as http;
 
 class OperativeRemoteDatasource {
   final HttpHandler httpHandler;
@@ -95,10 +97,47 @@ class OperativeRemoteDatasource {
       Constants.reAPI.addPreOperative,
     );
     try {
-      final response = await httpHandler.post(
-        uri,
-        dto.toJson(),
-      );
+      List<http.MultipartFile> images = [];
+      if (dto.asesScoreFile?.isNotEmpty ?? false) {
+        images.add(
+          await http.MultipartFile.fromPath(
+            'ases_score_file',
+            Uri.file(dto.asesScoreFile!).toFilePath(),
+          ),
+        );
+      }
+      if (dto.xRayFile?.isNotEmpty ?? false) {
+        images.add(
+          await http.MultipartFile.fromPath(
+            'x_ray_file',
+            Uri.file(dto.xRayFile!).toFilePath(),
+          ),
+        );
+      }
+      if (dto.ctScanFile?.isNotEmpty ?? false) {
+        images.add(
+          await http.MultipartFile.fromPath(
+            'ct_scan_file',
+            Uri.file(dto.ctScanFile!).toFilePath(),
+          ),
+        );
+      }
+      if (dto.mriFile?.isNotEmpty ?? false) {
+        images.add(
+          await http.MultipartFile.fromPath(
+            'mri_file',
+            Uri.file(dto.mriFile!).toFilePath(),
+          ),
+        );
+      }
+
+      final response = await httpHandler.post(uri, dto.toJson(),
+          modifyHeader: (images.isNotEmpty)
+              ? {
+                  'Content-Type': 'multipart/form-data',
+                }
+              : null,
+          images: images);
 
       log('[REMOTE] : ${uri.toString()}');
       if (response.statusCode == 200) {
