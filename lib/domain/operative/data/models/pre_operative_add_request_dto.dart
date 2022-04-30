@@ -38,47 +38,58 @@ class PreOperativeAddRequestDTO {
   String? xRayFile;
   String? ctScanFile;
   String? mriFile;
+  List<String>? forwardFlexionImages;
+  List<String>? abductionDegreeImages;
+  List<String>? externalRotationNeutralImages;
+  List<String>? externalRotation90AbductionImages;
+  List<String>? internalRotationImages;
 
-  PreOperativeAddRequestDTO(
-      {this.patient,
-        this.type,
-        this.vasScore,
-        this.forwardFlexion,
-        this.abductionDegree,
-        this.externalRotationNeutral,
-        this.externalRotation90Abduction,
-        this.internalRotation,
-        this.asesScore,
-        this.dashScore,
-        this.actionPlan,
-        this.plannedDate,
-        this.progessSupportInvestigation,
-        this.progessBpjsBilling,
-        this.progressBilling,
-        this.progessAnesthesia,
-        this.progessComplete,
-        this.shoulderSpecialTestForm,
-        this.shoulerNeer,
-        this.shoulerJobe,
-        this.shoulerHawkins,
-        this.extRotationLag,
-        this.hornblower,
-        this.bellyPress,
-        this.bellyOff,
-        this.liftOff,
-        this.bearHug,
-        this.obrient,
-        this.throwing,
-        this.speed,
-        this.anteriorApprehension,
-        this.posteriorApprehension,
-        this.loadShift,
-        this.sulcusSign,
-        this.posteriorJerk,
-        this.asesScoreFile,
-        this.xRayFile,
-        this.ctScanFile,
-        this.mriFile});
+  PreOperativeAddRequestDTO({
+    this.patient,
+    this.type,
+    this.vasScore,
+    this.forwardFlexion,
+    this.abductionDegree,
+    this.externalRotationNeutral,
+    this.externalRotation90Abduction,
+    this.internalRotation,
+    this.asesScore,
+    this.dashScore,
+    this.actionPlan,
+    this.plannedDate,
+    this.progessSupportInvestigation,
+    this.progessBpjsBilling,
+    this.progressBilling,
+    this.progessAnesthesia,
+    this.progessComplete,
+    this.shoulderSpecialTestForm,
+    this.shoulerNeer,
+    this.shoulerJobe,
+    this.shoulerHawkins,
+    this.extRotationLag,
+    this.hornblower,
+    this.bellyPress,
+    this.bellyOff,
+    this.liftOff,
+    this.bearHug,
+    this.obrient,
+    this.throwing,
+    this.speed,
+    this.anteriorApprehension,
+    this.posteriorApprehension,
+    this.loadShift,
+    this.sulcusSign,
+    this.posteriorJerk,
+    this.asesScoreFile,
+    this.xRayFile,
+    this.ctScanFile,
+    this.mriFile,
+    this.forwardFlexionImages,
+    this.abductionDegreeImages,
+    this.externalRotationNeutralImages,
+    this.externalRotation90AbductionImages,
+    this.internalRotationImages,
+  });
 
   PreOperativeAddRequestDTO.fromJson(Map<String, dynamic> json) {
     patient = json['patient'];
@@ -120,6 +131,12 @@ class PreOperativeAddRequestDTO {
     xRayFile = json['x_ray_file'];
     ctScanFile = json['ct_scan_file'];
     mriFile = json['mri_file'];
+    forwardFlexionImages = json['forward_flexion_images'];
+    abductionDegreeImages = json['abduction_degree_images'];
+    externalRotationNeutralImages = json['external_rotation_neutral_images'];
+    externalRotation90AbductionImages =
+        json['external_rotation_90_abduction_images'];
+    internalRotationImages = json['internal_rotation_images'];
   }
 
   Map<String, dynamic> toJson() {
@@ -160,17 +177,38 @@ class PreOperativeAddRequestDTO {
     data['load_shift'] = loadShift;
     data['sulcus_sign'] = sulcusSign;
     data['posterior_jerk'] = posteriorJerk;
-    if(asesScoreFile != null){
+    if (asesScoreFile != null) {
       data['ases_score_file'] = asesScoreFile;
     }
-    if(xRayFile != null){
+    if (xRayFile != null) {
       data['x_ray_file'] = xRayFile;
     }
-    if(ctScanFile != null){
+    if (ctScanFile != null) {
       data['ct_scan_file'] = ctScanFile;
     }
-    if(mriFile != null){
+    if (mriFile != null) {
       data['mri_file'] = mriFile;
+    }
+    if (forwardFlexionImages != null &&
+        (forwardFlexionImages?.isNotEmpty ?? false)) {
+      data['forward_flexion_images'] = forwardFlexionImages;
+    }
+    if (abductionDegreeImages != null &&
+        (abductionDegreeImages?.isNotEmpty ?? false)) {
+      data['abduction_degree_images'] = abductionDegreeImages;
+    }
+    if (externalRotationNeutralImages != null &&
+        (externalRotationNeutralImages?.isNotEmpty ?? false)) {
+      data['external_rotation_neutral_images'] = externalRotationNeutralImages;
+    }
+    if (externalRotation90AbductionImages != null &&
+        (externalRotation90AbductionImages?.isNotEmpty ?? false)) {
+      data['external_rotation_90_abduction_images'] =
+          externalRotation90AbductionImages;
+    }
+    if (internalRotationImages != null &&
+        (internalRotationImages?.isNotEmpty ?? false)) {
+      data['internal_rotation_images'] = internalRotationImages;
     }
     return data;
   }

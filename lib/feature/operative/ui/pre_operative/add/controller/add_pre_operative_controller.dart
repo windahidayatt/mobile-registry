@@ -75,6 +75,15 @@ class AddPreOperativeController extends GetxController {
   final Rxn<PlatformFile> ctScan = Rxn<PlatformFile>();
   final Rxn<PlatformFile> mri = Rxn<PlatformFile>();
 
+  // Multiple Documents
+  final RxList<PlatformFile> forwardFlexionImages = <PlatformFile>[].obs;
+  final RxList<PlatformFile> abductionDegreeImages = <PlatformFile>[].obs;
+  final RxList<PlatformFile> externalRotationNeutralImages =
+      <PlatformFile>[].obs;
+  final RxList<PlatformFile> externalRotation90AbductionImages =
+      <PlatformFile>[].obs;
+  final RxList<PlatformFile> internalRotationImages = <PlatformFile>[].obs;
+
   void getPrePatients() {
     _getPrePatients();
   }
@@ -148,6 +157,19 @@ class AddPreOperativeController extends GetxController {
         xRayFile: xRay.value?.path,
         ctScanFile: ctScan.value?.path,
         mriFile: mri.value?.path,
+        forwardFlexionImages:
+            forwardFlexionImages.map((element) => element.path ?? '').toList(),
+        abductionDegreeImages:
+            forwardFlexionImages.map((element) => element.path ?? '').toList(),
+        externalRotationNeutralImages: externalRotationNeutralImages
+            .map((element) => element.path ?? '')
+            .toList(),
+        externalRotation90AbductionImages: externalRotation90AbductionImages
+            .map((element) => element.path ?? '')
+            .toList(),
+        internalRotationImages: internalRotationImages
+            .map((element) => element.path ?? '')
+            .toList(),
       ),
     );
     result.fold((l) {

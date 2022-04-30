@@ -16,7 +16,9 @@ class REApi {
   String get intraOperatives => '/api/intraoperative';
   String get postOperatives => '/api/postoperative';
   String get prePatients => '/api/preoperative-patient-list';
+  String get intraPatients => '/api/intraoperative-patient-list';
   String get addPreOperative => '/api/preoperative';
+  String get addIntraOperative => '/api/intraoperative';
   String get hospital => '/api/hospital';
 }
 

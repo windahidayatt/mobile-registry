@@ -5,6 +5,7 @@ import 'package:mobile_registry/feature/operative/ui/pre_operative/add/controlle
 import 'package:mobile_registry/shared_library/components/button/re_button.dart';
 import 'package:mobile_registry/shared_library/components/form/re_date_picker.dart';
 import 'package:mobile_registry/shared_library/components/form/re_file_field.dart';
+import 'package:mobile_registry/shared_library/components/form/re_multiple_photo.dart';
 import 'package:mobile_registry/shared_library/components/form/re_switch.dart';
 import 'package:mobile_registry/shared_library/components/form/re_text_field.dart';
 import 'package:mobile_registry/shared_library/components/form/re_text_field_area.dart';
@@ -201,6 +202,54 @@ class _AddPreOperativePageState extends State<AddPreOperativePage> {
                   ),
                 ),
                 _shoulderSpecialForm(),
+                _paddingWrapper(
+                  child: REMultiplePhoto(
+                      title: 'Forward Flexion (Degree/Range of Motion)',
+                      images: _controller.forwardFlexionImages,
+                      onAdd: () async {
+                        var file = await getAttachmentImage();
+                        _controller.forwardFlexionImages.add(file!);
+                      }),
+                ),
+                _paddingWrapper(
+                  child: REMultiplePhoto(
+                      title: 'Abduction 0-60°',
+                      images: _controller.abductionDegreeImages,
+                      onAdd: () async {
+                        var file = await getAttachmentImage();
+                        _controller.abductionDegreeImages.add(file!);
+                      }),
+                ),
+                _paddingWrapper(
+                  child: REMultiplePhoto(
+                      title:
+                          'External Rotation in Neutral (Degree/Range of Motion)',
+                      images: _controller.externalRotationNeutralImages,
+                      onAdd: () async {
+                        var file = await getAttachmentImage();
+                        _controller.externalRotationNeutralImages.add(file!);
+                      }),
+                ),
+                _paddingWrapper(
+                  child: REMultiplePhoto(
+                      title:
+                          'External Rotation 90 Abduction (Degree/Range of Motion)',
+                      images: _controller.externalRotation90AbductionImages,
+                      onAdd: () async {
+                        var file = await getAttachmentImage();
+                        _controller.externalRotation90AbductionImages
+                            .add(file!);
+                      }),
+                ),
+                _paddingWrapper(
+                  child: REMultiplePhoto(
+                      title: 'Internal Rotation',
+                      images: _controller.internalRotationImages,
+                      onAdd: () async {
+                        var file = await getAttachmentImage();
+                        _controller.internalRotationImages.add(file!);
+                      }),
+                ),
                 _paddingWrapper(
                   child: REFileField(
                     label: 'ASES Score',

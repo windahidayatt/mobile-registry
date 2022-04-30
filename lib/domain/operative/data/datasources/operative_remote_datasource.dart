@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
+import 'package:mobile_registry/domain/operative/data/models/intra_operative_add_request_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/intra_operative_response_dto.dart';
+import 'package:mobile_registry/domain/operative/data/models/intra_patients_response_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/post_operative_response_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/pre_operative_add_request_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/pre_operative_response_dto.dart';
@@ -91,6 +92,24 @@ class OperativeRemoteDatasource {
     }
   }
 
+  Future<List<IntraPatientsResponseDTO>> getIntraPatients() async {
+    Uri uri = Uri.http(Constants.reAPI.endpoint, Constants.reAPI.intraPatients);
+    try {
+      final response = await httpHandler.get(uri);
+      log('[REMOTE] : ${uri.toString()}');
+      if (response.statusCode == 200) {
+        return intraPatientsResponseDtoFromJsonArray(response.body);
+      } else {
+        log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
+      }
+    } catch (error) {
+      log('[REMOTE ERROR] : ${error.toString()}');
+      rethrow;
+    }
+  }
+
   Future<bool> addPreOperative(PreOperativeAddRequestDTO dto) async {
     Uri uri = Uri.http(
       Constants.reAPI.endpoint,
@@ -138,6 +157,32 @@ class OperativeRemoteDatasource {
                 }
               : null,
           images: images);
+
+      log('[REMOTE] : ${uri.toString()}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        log(response.statusCode.toString());
+        log('[REMOTE NOT SUCCESS] : ${json.decode(response.body)['message'].toString()}');
+        throw APIException(
+            json.decode(response.body)['message'], response.statusCode);
+      }
+    } catch (error) {
+      log('[REMOTE ERROR] : ${error.toString()}');
+      rethrow;
+    }
+  }
+
+  Future<bool> addIntraOperative(IntraOperativeAddRequestDTO dto) async {
+    Uri uri = Uri.http(
+      Constants.reAPI.endpoint,
+      Constants.reAPI.addIntraOperative,
+    );
+    try {
+      final response = await httpHandler.post(
+        uri,
+        dto.toJson(),
+      );
 
       log('[REMOTE] : ${uri.toString()}');
       if (response.statusCode == 200) {

@@ -1,3 +1,4 @@
+import 'package:mobile_registry/feature/operative/ui/intra_operative/add/controller/add_intra_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/intra_operative/dashboard/controller/intra_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/post_operative/dashboard/controller/post_operative_controller.dart';
 import 'package:mobile_registry/feature/operative/ui/pre_operative/add/controller/add_pre_operative_controller.dart';
@@ -37,6 +38,12 @@ class OperativeFeatureDependencies {
     );
     sl.registerFactory<DetailPreOperativeController>(
       () => DetailPreOperativeController(),
+    );
+    sl.registerFactory<AddIntraOperativeController>(
+      () => AddIntraOperativeController(
+        getIntraPatientsUseCase: sl(),
+        addIntraOperativeUseCase: sl(),
+      ),
     );
   }
 }

@@ -1,12 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobile_registry/domain/operative/data/datasources/operative_local_datasource.dart';
 import 'package:mobile_registry/domain/operative/data/datasources/operative_remote_datasource.dart';
+import 'package:mobile_registry/domain/operative/data/models/intra_operative_add_request_dto.dart';
 import 'package:mobile_registry/domain/operative/data/models/pre_operative_add_request_dto.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/intra_operative.dart';
+import 'package:mobile_registry/domain/operative/domain/entities/intra_patients.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/post_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/pre_operative.dart';
 import 'package:mobile_registry/domain/operative/domain/entities/pre_patients.dart';
 import 'package:mobile_registry/domain/operative/domain/repositories/operative_repository.dart';
+import 'package:mobile_registry/domain/operative/domain/usecases/add_intra_operative_usecase.dart';
 import 'package:mobile_registry/domain/operative/domain/usecases/add_pre_operative_usecase.dart';
 import 'package:mobile_registry/shared_library/exception/api_exceptions.dart';
 import 'package:mobile_registry/shared_library/failure/failure.dart';
@@ -86,6 +89,22 @@ class OperativeRepositoryImpl implements OperativeRepository {
   }
 
   @override
+  Future<Either<Failure, List<IntraPatients>>> getIntraPatients(
+      NoParams params) async {
+    try {
+      var result = await remoteDatasource.getIntraPatients();
+      List<IntraPatients> patients = List<IntraPatients>.from(
+        result.map(
+          (x) => IntraPatients.fromDTO(x),
+        ),
+      );
+      return Right(patients);
+    } on APIException catch (error) {
+      return Left(APIFailure(message: error.message));
+    }
+  }
+
+  @override
   Future<Either<Failure, bool>> addPreOperative(
       AddPreOperativeParams params) async {
     try {
@@ -130,6 +149,12 @@ class OperativeRepositoryImpl implements OperativeRepository {
           xRayFile: params.xRayFile,
           ctScanFile: params.ctScanFile,
           mriFile: params.mriFile,
+          forwardFlexionImages: params.forwardFlexionImages,
+          abductionDegreeImages: params.abductionDegreeImages,
+          externalRotationNeutralImages: params.externalRotationNeutralImages,
+          externalRotation90AbductionImages:
+              params.externalRotation90AbductionImages,
+          internalRotationImages: params.internalRotationImages,
         ),
       );
       return Right(result);
@@ -168,6 +193,64 @@ class OperativeRepositoryImpl implements OperativeRepository {
   Future<Either<Failure, bool>> deletePostOperative(String params) async {
     try {
       var result = await remoteDatasource.deletePostOperative(params);
+      return Right(result);
+    } on APIException catch (error) {
+      return Left(
+        APIFailure(message: error.message),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> addIntraOperative(
+      AddIntraOperativeParams params) async {
+    try {
+      var result = await remoteDatasource.addIntraOperative(
+        IntraOperativeAddRequestDTO(
+          patient: params.patient,
+          domainManagement: params.domainManagement,
+          anthroscopyOpenReduction: params.anthroscopyOpenReduction,
+          humeralHeadSize: params.humeralHeadSize,
+          humeralStemSize: params.humeralStemSize,
+          glenosphereSize: params.glenosphereSize,
+          actionPlan: params.actionPlan,
+          plannedDate: params.plannedDate,
+          progessSupportInvestigation: params.progessSupportInvestigation,
+          progessBpjsBilling: params.progessBpjsBilling,
+          progessAnesthesia: params.progessAnesthesia,
+          progessComplete: params.progessComplete,
+          subacromialInjection: params.subacromialInjection,
+          glenohumeralInjection: params.glenohumeralInjection,
+          acJointInjection: params.acJointInjection,
+          sphSuprascapularNotch: params.sphSuprascapularNotch,
+          sphSpinoglenoidNotch: params.sphSpinoglenoidNotch,
+          lhbtLongAxisBg: params.lhbtLongAxisBg,
+          lhbtShortAxisBg: params.lhbtShortAxisBg,
+          lhbtRotatorInterval: params.lhbtRotatorInterval,
+          usgGuidedInjection: params.usgGuidedInjection,
+          anatomicalLandmarkInjection: params.anatomicalLandmarkInjection,
+          piOther: params.piOther,
+          lhbtTenotomy: params.lhbtTenotomy,
+          lhbtTenodesis: params.lhbtTenodesis,
+          subacromialDecompressionBursectomy:
+              params.subacromialDecompressionBursectomy,
+          acromioplasty: params.acromioplasty,
+          partialRotatorCuffRepair: params.partialRotatorCuffRepair,
+          rotatorCuffRepair: params.rotatorCuffRepair,
+          superiorCapsularReconstruction: params.superiorCapsularReconstruction,
+          bankartRepair: params.bankartRepair,
+          bonyBankartRepair: params.bonyBankartRepair,
+          capsuleLabrumPlasty: params.capsuleLabrumPlasty,
+          acJointResection: params.acJointResection,
+          suprascapularNerveRelease: params.suprascapularNerveRelease,
+          axillaryNerveRelease: params.axillaryNerveRelease,
+          arthroscopyLatarjetProcedure: params.arthroscopyLatarjetProcedure,
+          saOther: params.saOther,
+          magnusonStack: params.magnusonStack,
+          ortOther: params.ortOther,
+          shoulderArthroplastyProcedure: params.shoulderArthroplastyProcedure,
+        ),
+      );
       return Right(result);
     } on APIException catch (error) {
       return Left(
